@@ -1,0 +1,613 @@
+module ship_proto
+	(
+		////////////////////	Clock Input	 	////////////////////	 
+		CLOCK_27,						//	27 MHz
+		CLOCK_50,						//	50 MHz
+		EXT_CLOCK,						//	External Clock
+		////////////////////	Push Button		////////////////////
+		KEY,							//	Pushbutton[3:0]
+		////////////////////	DPDT Switch		////////////////////
+		SW,								//	Toggle Switch[17:0]
+		////////////////////	7-SEG Dispaly	////////////////////
+		HEX0,							//	Seven Segment Digit 0
+		HEX1,							//	Seven Segment Digit 1
+		HEX2,							//	Seven Segment Digit 2
+		HEX3,							//	Seven Segment Digit 3
+		HEX4,							//	Seven Segment Digit 4
+		HEX5,							//	Seven Segment Digit 5
+		HEX6,							//	Seven Segment Digit 6
+		HEX7,							//	Seven Segment Digit 7
+		////////////////////////	LED		////////////////////////
+		LEDG,							//	LED Green[8:0]
+		LEDR,							//	LED Red[17:0]
+		////////////////////////	UART	////////////////////////
+		UART_TXD,						//	UART Transmitter
+		UART_RXD,						//	UART Receiver
+		////////////////////////	IRDA	////////////////////////
+		IRDA_TXD,						//	IRDA Transmitter
+		IRDA_RXD,						//	IRDA Receiver
+		/////////////////////	SDRAM Interface		////////////////
+		DRAM_DQ,						//	SDRAM Data bus 16 Bits
+		DRAM_ADDR,						//	SDRAM Address bus 12 Bits
+		DRAM_LDQM,						//	SDRAM Low-byte Data Mask 
+		DRAM_UDQM,						//	SDRAM High-byte Data Mask
+		DRAM_WE_N,						//	SDRAM Write Enable
+		DRAM_CAS_N,						//	SDRAM Column Address Strobe
+		DRAM_RAS_N,						//	SDRAM Row Address Strobe
+		DRAM_CS_N,						//	SDRAM Chip Select
+		DRAM_BA_0,						//	SDRAM Bank Address 0
+		DRAM_BA_1,						//	SDRAM Bank Address 0
+		DRAM_CLK,						//	SDRAM Clock
+		DRAM_CKE,						//	SDRAM Clock Enable
+		////////////////////	Flash Interface		////////////////
+		FL_DQ,							//	FLASH Data bus 8 Bits
+		FL_ADDR,						//	FLASH Address bus 22 Bits
+		FL_WE_N,						//	FLASH Write Enable
+		FL_RST_N,						//	FLASH Reset
+		FL_OE_N,						//	FLASH Output Enable
+		FL_CE_N,						//	FLASH Chip Enable
+		////////////////////	SRAM Interface		////////////////
+		SRAM_DQ,						//	SRAM Data bus 16 Bits
+		SRAM_ADDR,						//	SRAM Address bus 18 Bits
+		SRAM_UB_N,						//	SRAM High-byte Data Mask 
+		SRAM_LB_N,						//	SRAM Low-byte Data Mask 
+		SRAM_WE_N,						//	SRAM Write Enable
+		SRAM_CE_N,						//	SRAM Chip Enable
+		SRAM_OE_N,						//	SRAM Output Enable
+		////////////////////	ISP1362 Interface	////////////////
+		OTG_DATA,						//	ISP1362 Data bus 16 Bits
+		OTG_ADDR,						//	ISP1362 Address 2 Bits
+		OTG_CS_N,						//	ISP1362 Chip Select
+		OTG_RD_N,						//	ISP1362 Write
+		OTG_WR_N,						//	ISP1362 Read
+		OTG_RST_N,						//	ISP1362 Reset
+		OTG_FSPEED,						//	USB Full Speed,	0 = Enable, Z = Disable
+		OTG_LSPEED,						//	USB Low Speed, 	0 = Enable, Z = Disable
+		OTG_INT0,						//	ISP1362 Interrupt 0
+		OTG_INT1,						//	ISP1362 Interrupt 1
+		OTG_DREQ0,						//	ISP1362 DMA Request 0
+		OTG_DREQ1,						//	ISP1362 DMA Request 1
+		OTG_DACK0_N,					//	ISP1362 DMA Acknowledge 0
+		OTG_DACK1_N,					//	ISP1362 DMA Acknowledge 1
+		////////////////////	LCD Module 16X2		////////////////
+		LCD_ON,							//	LCD Power ON/OFF
+		LCD_BLON,						//	LCD Back Light ON/OFF
+		LCD_RW,							//	LCD Read/Write Select, 0 = Write, 1 = Read
+		LCD_EN,							//	LCD Enable
+		LCD_RS,							//	LCD Command/Data Select, 0 = Command, 1 = Data
+		LCD_DATA,						//	LCD Data bus 8 bits
+		////////////////////	SD_Card Interface	////////////////
+		SD_DAT,							//	SD Card Data
+		SD_DAT3,						//	SD Card Data 3
+		SD_CMD,							//	SD Card Command Signal
+		SD_CLK,							//	SD Card Clock
+		////////////////////	USB JTAG link	////////////////////
+		TDI,  							// CPLD -> FPGA (data in)
+		TCK,  							// CPLD -> FPGA (clk)
+		TCS,  							// CPLD -> FPGA (CS)
+	    TDO,  							// FPGA -> CPLD (data out)
+		////////////////////	I2C		////////////////////////////
+		I2C_SDAT,						//	I2C Data
+		I2C_SCLK,						//	I2C Clock
+		////////////////////	PS2		////////////////////////////
+		PS2_DAT,						//	PS2 Data
+		PS2_CLK,						//	PS2 Clock
+		////////////////////	VGA		////////////////////////////
+		VGA_CLK,   						//	VGA Clock
+		VGA_HS,							//	VGA H_SYNC
+		VGA_VS,							//	VGA V_SYNC
+		VGA_BLANK,						//	VGA BLANK
+		VGA_SYNC,						//	VGA SYNC
+		VGA_R,   						//	VGA Red[9:0]
+		VGA_G,	 						//	VGA Green[9:0]
+		VGA_B,  						//	VGA Blue[9:0]
+		////////////	Ethernet Interface	////////////////////////
+		ENET_DATA,						//	DM9000A DATA bus 16Bits
+		ENET_CMD,						//	DM9000A Command/Data Select, 0 = Command, 1 = Data
+		ENET_CS_N,						//	DM9000A Chip Select
+		ENET_WR_N,						//	DM9000A Write
+		ENET_RD_N,						//	DM9000A Read
+		ENET_RST_N,						//	DM9000A Reset
+		ENET_INT,						//	DM9000A Interrupt
+		ENET_CLK,						//	DM9000A Clock 25 MHz
+		////////////////	Audio CODEC		////////////////////////
+		AUD_ADCLRCK,					//	Audio CODEC ADC LR Clock
+		AUD_ADCDAT,						//	Audio CODEC ADC Data
+		AUD_DACLRCK,					//	Audio CODEC DAC LR Clock
+		AUD_DACDAT,						//	Audio CODEC DAC Data
+		AUD_BCLK,						//	Audio CODEC Bit-Stream Clock
+		AUD_XCK,						//	Audio CODEC Chip Clock
+		////////////////	TV Decoder		////////////////////////
+		TD_DATA,    					//	TV Decoder Data bus 8 bits
+		TD_HS,							//	TV Decoder H_SYNC
+		TD_VS,							//	TV Decoder V_SYNC
+		TD_RESET,						//	TV Decoder Reset
+		////////////////////	GPIO	////////////////////////////
+		GPIO_0,							//	GPIO Connection 0
+		GPIO_1							//	GPIO Connection 1
+	);
+
+////////////////////////	Clock Input	 	////////////////////////
+input			CLOCK_27;				//	27 MHz
+input			CLOCK_50;				//	50 MHz
+input			EXT_CLOCK;				//	External Clock
+////////////////////////	Push Button		////////////////////////
+input	[3:0]	KEY;					//	Pushbutton[3:0]
+////////////////////////	DPDT Switch		////////////////////////
+input	[17:0]	SW;						//	Toggle Switch[17:0]
+////////////////////////	7-SEG Dispaly	////////////////////////
+output	[6:0]	HEX0;					//	Seven Segment Digit 0
+output	[6:0]	HEX1;					//	Seven Segment Digit 1
+output	[6:0]	HEX2;					//	Seven Segment Digit 2
+output	[6:0]	HEX3;					//	Seven Segment Digit 3
+output	[6:0]	HEX4;					//	Seven Segment Digit 4
+output	[6:0]	HEX5;					//	Seven Segment Digit 5
+output	[6:0]	HEX6;					//	Seven Segment Digit 6
+output	[6:0]	HEX7;					//	Seven Segment Digit 7
+////////////////////////////	LED		////////////////////////////
+output	[8:0]	LEDG;					//	LED Green[8:0]
+output	[17:0]	LEDR;					//	LED Red[17:0]
+////////////////////////////	UART	////////////////////////////
+output			UART_TXD;				//	UART Transmitter
+input			UART_RXD;				//	UART Receiver
+////////////////////////////	IRDA	////////////////////////////
+output			IRDA_TXD;				//	IRDA Transmitter
+input			IRDA_RXD;				//	IRDA Receiver
+///////////////////////		SDRAM Interface	////////////////////////
+inout	[15:0]	DRAM_DQ;				//	SDRAM Data bus 16 Bits
+output	[11:0]	DRAM_ADDR;				//	SDRAM Address bus 12 Bits
+output			DRAM_LDQM;				//	SDRAM Low-byte Data Mask 
+output			DRAM_UDQM;				//	SDRAM High-byte Data Mask
+output			DRAM_WE_N;				//	SDRAM Write Enable
+output			DRAM_CAS_N;				//	SDRAM Column Address Strobe
+output			DRAM_RAS_N;				//	SDRAM Row Address Strobe
+output			DRAM_CS_N;				//	SDRAM Chip Select
+output			DRAM_BA_0;				//	SDRAM Bank Address 0
+output			DRAM_BA_1;				//	SDRAM Bank Address 0
+output			DRAM_CLK;				//	SDRAM Clock
+output			DRAM_CKE;				//	SDRAM Clock Enable
+////////////////////////	Flash Interface	////////////////////////
+inout	[7:0]	FL_DQ;					//	FLASH Data bus 8 Bits
+output	[21:0]	FL_ADDR;				//	FLASH Address bus 22 Bits
+output			FL_WE_N;				//	FLASH Write Enable
+output			FL_RST_N;				//	FLASH Reset
+output			FL_OE_N;				//	FLASH Output Enable
+output			FL_CE_N;				//	FLASH Chip Enable
+////////////////////////	SRAM Interface	////////////////////////
+inout	[15:0]	SRAM_DQ;				//	SRAM Data bus 16 Bits
+output	[17:0]	SRAM_ADDR;				//	SRAM Address bus 18 Bits
+output			SRAM_UB_N;				//	SRAM High-byte Data Mask 
+output			SRAM_LB_N;				//	SRAM Low-byte Data Mask 
+output			SRAM_WE_N;				//	SRAM Write Enable
+output			SRAM_CE_N;				//	SRAM Chip Enable
+output			SRAM_OE_N;				//	SRAM Output Enable
+////////////////////	ISP1362 Interface	////////////////////////
+inout	[15:0]	OTG_DATA;				//	ISP1362 Data bus 16 Bits
+output	[1:0]	OTG_ADDR;				//	ISP1362 Address 2 Bits
+output			OTG_CS_N;				//	ISP1362 Chip Select
+output			OTG_RD_N;				//	ISP1362 Write
+output			OTG_WR_N;				//	ISP1362 Read
+output			OTG_RST_N;				//	ISP1362 Reset
+output			OTG_FSPEED;				//	USB Full Speed,	0 = Enable, Z = Disable
+output			OTG_LSPEED;				//	USB Low Speed, 	0 = Enable, Z = Disable
+input			OTG_INT0;				//	ISP1362 Interrupt 0
+input			OTG_INT1;				//	ISP1362 Interrupt 1
+input			OTG_DREQ0;				//	ISP1362 DMA Request 0
+input			OTG_DREQ1;				//	ISP1362 DMA Request 1
+output			OTG_DACK0_N;			//	ISP1362 DMA Acknowledge 0
+output			OTG_DACK1_N;			//	ISP1362 DMA Acknowledge 1
+////////////////////	LCD Module 16X2	////////////////////////////
+inout	[7:0]	LCD_DATA;				//	LCD Data bus 8 bits
+output			LCD_ON;					//	LCD Power ON/OFF
+output			LCD_BLON;				//	LCD Back Light ON/OFF
+output			LCD_RW;					//	LCD Read/Write Select, 0 = Write, 1 = Read
+output			LCD_EN;					//	LCD Enable
+output			LCD_RS;					//	LCD Command/Data Select, 0 = Command, 1 = Data
+////////////////////	SD Card Interface	////////////////////////
+inout			SD_DAT;					//	SD Card Data
+inout			SD_DAT3;				//	SD Card Data 3
+inout			SD_CMD;					//	SD Card Command Signal
+output			SD_CLK;					//	SD Card Clock
+////////////////////////	I2C		////////////////////////////////
+inout			I2C_SDAT;				//	I2C Data
+output			I2C_SCLK;				//	I2C Clock
+////////////////////////	PS2		////////////////////////////////
+input		 	PS2_DAT;				//	PS2 Data
+input			PS2_CLK;				//	PS2 Clock
+////////////////////	USB JTAG link	////////////////////////////
+input  			TDI;					// CPLD -> FPGA (data in)
+input  			TCK;					// CPLD -> FPGA (clk)
+input  			TCS;					// CPLD -> FPGA (CS)
+output 			TDO;					// FPGA -> CPLD (data out)
+////////////////////////	VGA			////////////////////////////
+output			VGA_CLK;   				//	VGA Clock
+output			VGA_HS;					//	VGA H_SYNC
+output			VGA_VS;					//	VGA V_SYNC
+output			VGA_BLANK;				//	VGA BLANK
+output			VGA_SYNC;				//	VGA SYNC
+output	[9:0]	VGA_R;   				//	VGA Red[9:0]
+output	[9:0]	VGA_G;	 				//	VGA Green[9:0]
+output	[9:0]	VGA_B;   				//	VGA Blue[9:0]
+////////////////	Ethernet Interface	////////////////////////////
+inout	[15:0]	ENET_DATA;				//	DM9000A DATA bus 16Bits
+output			ENET_CMD;				//	DM9000A Command/Data Select, 0 = Command, 1 = Data
+output			ENET_CS_N;				//	DM9000A Chip Select
+output			ENET_WR_N;				//	DM9000A Write
+output			ENET_RD_N;				//	DM9000A Read
+output			ENET_RST_N;				//	DM9000A Reset
+input			ENET_INT;				//	DM9000A Interrupt
+output			ENET_CLK;				//	DM9000A Clock 25 MHz
+////////////////////	Audio CODEC		////////////////////////////
+inout			AUD_ADCLRCK;			//	Audio CODEC ADC LR Clock
+input			AUD_ADCDAT;				//	Audio CODEC ADC Data
+inout			AUD_DACLRCK;			//	Audio CODEC DAC LR Clock
+output			AUD_DACDAT;				//	Audio CODEC DAC Data
+inout			AUD_BCLK;				//	Audio CODEC Bit-Stream Clock
+output			AUD_XCK;				//	Audio CODEC Chip Clock
+////////////////////	TV Devoder		////////////////////////////
+input	[7:0]	TD_DATA;    			//	TV Decoder Data bus 8 bits
+input			TD_HS;					//	TV Decoder H_SYNC
+input			TD_VS;					//	TV Decoder V_SYNC
+output			TD_RESET;				//	TV Decoder Reset
+////////////////////////	GPIO	////////////////////////////////
+inout	[35:0]	GPIO_0;					//	GPIO Connection 0
+inout	[35:0]	GPIO_1;					//	GPIO Connection 1
+
+assign	LCD_ON		=	1'b1;
+assign	LCD_BLON	=	1'b1;
+
+//	All inout port turn to tri-state
+assign	DRAM_DQ		=	16'hzzzz;
+assign	FL_DQ		=	8'hzz;
+assign	SRAM_DQ		=	16'hzzzz;
+assign	OTG_DATA	=	16'hzzzz;
+assign	LCD_DATA	=	8'hzz;
+assign	SD_DAT		=	1'bz;
+assign	I2C_SDAT	=	1'bz;
+assign	AUD_ADCLRCK	=	1'bz;
+assign	AUD_DACLRCK	=	1'bz;
+assign	AUD_BCLK	=	1'bz;
+assign	GPIO_0		=	36'hzzzzzzzzz;
+assign	GPIO_1		=	36'hzzzzzzzzz;
+
+wire rst_n;
+//reg rst_n_tmp;
+assign rst_n = KEY[0]; // don't debounce reset since ddebouncer depends on reset
+//always @ (posedge system_clk) 
+//begin
+//	rst_n_tmp <= SW[17];
+//	rst_n <= rst_n_tmp;
+//end
+
+wire system_clk; // clock for all the peripherals
+assign system_clk = CLOCK_50;
+wire ENET_CLK;
+ethernet_clk e25(1'b0, CLOCK_27, ENET_CLK);
+
+/* Debounce the switches - see debouncer file */
+wire [17:0]SWO;
+debounce_DE2_SW debSW(system_clk, rst_n, SW, SWO);
+
+/* Status of the design.  Key to see link status up if ethernet packets are ready */
+assign LEDG[7] = link_status;
+assign LEDG[6] = pulse_2_sec;
+assign LEDG[5] = bad_packet;
+assign LEDG[4] = no_packets_to_read;
+
+/* various pulses to debug system */
+wire pulse_fast;
+wire pulse_fast_1_clk;
+pulse_timer quart_sec(system_clk, rst_n, pulse_fast, pulse_fast_1_clk, 32'd2000000);
+wire pulse_2_sec;
+wire pulse_2_sec_1_clk_on;
+pulse_timer two_sec(system_clk, rst_n, pulse_2_sec, pulse_2_sec_1_clk_on, 32'd50000000);
+
+/* These are the registers about the ships properties */
+// 4*28+1+(3p)+4+23 = 143bits
+wire [3:0] power_A_B; // these are the amplification powers for each crystal
+wire [3:0] power_A_C;
+wire [3:0] power_A_D;
+wire [3:0] power_A_E;
+wire [3:0] power_A_F;
+wire [3:0] power_A_G;
+wire [3:0] power_A_H;
+wire [3:0] power_B_C;
+wire [3:0] power_B_D;
+wire [3:0] power_B_E;
+wire [3:0] power_B_F;
+wire [3:0] power_B_G;
+wire [3:0] power_B_H;
+wire [3:0] power_C_D;
+wire [3:0] power_C_E;
+wire [3:0] power_C_F;
+wire [3:0] power_C_G;
+wire [3:0] power_C_H;
+wire [3:0] power_D_E;
+wire [3:0] power_D_F;
+wire [3:0] power_D_G;
+wire [3:0] power_D_H;
+wire [3:0] power_E_F;
+wire [3:0] power_E_G;
+wire [3:0] power_E_H;
+wire [3:0] power_F_G;
+wire [3:0] power_F_H;
+wire [3:0] power_G_H;
+wire [3:0]sensor_detected_something; // 3'b000 = ship, 3'b001 = object, 3'b010 = boundary
+wire [15:0] x_coord;
+wire [15:0] y_coord;
+wire [15:0]rx_checksum; // checksum that you should get back on next transmission
+
+/* These are the information that needs to be sent about the ship */
+// 3+3+3+3+3+3+3+3+1+1+2+8+1+10 = 47bits
+reg [2:0] power_crystal_A_hooked_up_to; // these are the hookups for the ship
+reg [2:0] power_crystal_2_hooked_up_to;
+reg [2:0] power_crystal_3_hooked_up_to;
+reg [2:0] power_crystal_4_hooked_up_to;
+reg [2:0] power_crystal_5_hooked_up_to;
+reg [2:0] power_crystal_6_hooked_up_to;
+reg [2:0] power_crystal_7_hooked_up_to;
+reg [2:0] power_crystal_8_hooked_up_to;
+reg engines_on;
+reg [1:0]engines_left_right; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
+reg [1:0]sensor_movement_state; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
+reg [7:0]sensor_movement_per_sample; // 90 degrees at .5 degree increments = 180...180/samples/sec...4 control samples per s, therefore, 45 is max number 
+reg cannon_fire; // sampled every second
+reg [9:0]cannon_power;
+reg [15:0]tx_checksum; // checksum that you might send to verify
+
+/* Visualize the data about your ship */
+reg [15:0] to_see2;
+seg7 h4(to_see2[3:0],HEX4);
+seg7 h5(to_see2[7:4],HEX5);
+seg7 h6(to_see2[11:8],HEX6);
+seg7 h7(to_see2[15:12],HEX7);
+
+reg [15:0] to_see1;
+seg7 h0(to_see1[3:0],HEX0);
+seg7 h1(to_see1[7:4],HEX1);
+seg7 h2(to_see1[11:8],HEX2);
+seg7 h3(to_see1[15:12],HEX3);
+
+assign LEDR[17:0] = (SWO[15] == 1'b1) ? {1'b1 /* 1 bit */} : {sensor_detected_something /* 4 bits */};
+reg [8:0]count;
+always @ (posedge system_clk or negedge rst_n) 
+begin
+	if (rst_n == 1'b0) 
+	begin
+		count <= 8'd0;
+		to_see1 <= 16'd0;
+		to_see2 <= 16'd0;
+	end
+	else 
+	begin
+		if (SW[15] == 1'b1)
+		begin
+			case (count)
+				9'd0: 
+				begin
+					to_see1 <= 16'hABCD;
+					to_see2 <= 16'hDCBA;
+				end
+				9'd1: 
+				begin
+					to_see1 <= {4'h0, power_A_B, 4'h0, power_A_C};
+					to_see2 <= {4'h0, power_A_D, 4'h0, power_A_E};
+				end
+				9'd2:
+				begin
+					to_see1 <= {4'h0, power_A_F, 4'h0, power_A_G};
+					to_see2 <= {4'h0, power_A_H, 4'h0, power_B_C};
+				end
+				9'd3:
+				begin
+					to_see1 <= {4'h0, power_B_D, 4'h0, power_B_E};
+					to_see2 <= {4'h0, power_B_F, 4'h0, power_B_G};
+				end
+				9'd4:
+				begin
+					to_see1 <= {4'h0, power_B_H, 4'h0, power_C_D};
+					to_see2 <= {4'h0, power_C_E, 4'h0, power_C_F};
+				end
+				9'd5:
+				begin
+					to_see1 <= {4'h0, power_C_G, 4'h0, power_C_H};
+					to_see2 <= {4'h0, power_D_E, 4'h0, power_D_F};
+				end
+				9'd6:
+				begin
+					to_see1 <= {4'h0, power_D_G, 4'h0, power_D_H};
+					to_see2 <= {4'h0, power_E_F, 4'h0, power_E_G};
+				end
+				9'd7:
+				begin
+					to_see1 <= {4'h0, power_E_H, 4'h0, power_F_G};
+					to_see2 <= {4'h0, power_F_H, 4'h0, power_G_H};
+				end
+				9'd8:
+				begin
+					to_see1 <= rx_checksum;
+					to_see2 <= rx_checksum;
+				end
+				default:
+				begin
+					to_see1 <= 16'hFFFF;
+					to_see2 <= 16'hFFFF;
+				end
+			endcase
+	
+			if (pulse_2_sec_1_clk_on == 1'b1)
+			begin
+				if (count == 8'd8)
+				begin
+					count <= 8'd0;
+				end
+				else
+				begin
+					count <= count + 1'b1;
+				end
+			end
+		end
+		else if (SWO[14] == 1'b1)
+		begin
+			/* see what's on the sensor distance */
+			to_see1 <= x_coord;
+			to_see2 <= y_coord;
+		end
+	end
+end
+
+/* this sets values for your ship to control - very simple */
+always @ (posedge system_clk or negedge rst_n) 
+begin
+	if (rst_n == 1'b0) 
+	begin
+		power_crystal_A_hooked_up_to <= 3'd0;
+		power_crystal_2_hooked_up_to <= 3'd0;
+		power_crystal_3_hooked_up_to <= 3'd0;
+		power_crystal_4_hooked_up_to <= 3'd0;
+		power_crystal_5_hooked_up_to <= 3'd0;
+		power_crystal_6_hooked_up_to <= 3'd0;
+		power_crystal_7_hooked_up_to <= 3'd0;
+		power_crystal_8_hooked_up_to <= 3'd0;
+		engines_on <= 1'b0;
+		engines_left_right <= 2'b00;
+		sensor_movement_state <= 2'b00;
+		sensor_movement_per_sample <= 8'd0;
+		cannon_fire <= 1'b0;
+		cannon_power <= 9'd0;
+		tx_checksum <= 16'hFAFA;
+	end
+	else 
+	begin
+		tx_checksum <= 16'hFAFA;
+
+		// random crystal connection based on player 
+		power_crystal_A_hooked_up_to <= 3'd7;
+		power_crystal_2_hooked_up_to <= 3'd6;
+		power_crystal_3_hooked_up_to <= 3'd5;
+		power_crystal_4_hooked_up_to <= 3'd4;
+		power_crystal_5_hooked_up_to <= 3'd3;
+		power_crystal_6_hooked_up_to <= 3'd2;
+		power_crystal_7_hooked_up_to <= 3'd1;
+		power_crystal_8_hooked_up_to <= 3'd0;
+
+		// Accelerate
+		engines_on <= SWO[0]; // fire cannon or not
+		if (SWO[0] == 1'b1)
+		begin
+			engines_left_right <= 1'b1;
+		end
+		else
+		begin
+			engines_left_right <= 1'b0;
+		end
+
+		// Movement dir
+		if (SWO[1] == 1'b0)
+		begin
+			engines_left_right <= 2'b00; // don't move .. SW2 = 0
+		end
+		else if (SWO[2] == 1'b1)
+		begin
+			engines_left_right <= 2'b01; // move right ... SW2 = 1 SW3 = 1
+		end
+		else
+		begin
+			engines_left_right <= 2'b10; // move left ... SW2 = 1 SW3 = 0
+		end
+
+		// Sensor movement dir
+		if (SWO[3] == 1'b0)
+		begin
+			sensor_movement_state <= 2'b00; // don't move .. SW2 = 0
+		end
+		else if (SWO[4] == 1'b1)
+		begin
+			sensor_movement_state <= 2'b01; // move right ... SW2 = 1 SW3 = 1
+		end
+		else
+		begin
+			sensor_movement_state <= 2'b10; // move left ... SW2 = 1 SW3 = 0
+		end
+
+		// Sensor move by 1 degree or .5 degree
+		sensor_movement_per_sample <= 8'd1*(SWO[5] + 1'b1); // 2*.5 degree = 1 degree per second OR 1*.5 degreee = .5 degree per second
+
+		cannon_fire <= SWO[6]; // fire cannon or not
+		cannon_power <= (SWO[7]+1'b1) * 9'd10; // fire power is either 10 or 20
+	end
+end
+	
+/* This is the interface to the ethernet and the master.  Don't change in any way including the modules it impacts */
+wire no_packets_to_read;
+wire link_status;
+wire bad_packet;
+data_tx_rx packet_mover(
+	.system_clk(system_clk),
+	.rst_n(rst_n),
+
+	.ENET_CLK(ENET_CLK),
+	.ENET_INT(ENET_INT),
+	.ENET_RST_N(ENET_RST_N),
+	.ENET_CS_N(ENET_CS_N),
+	.ENET_CMD(ENET_CMD),
+	.ENET_WR_N(ENET_WR_N),
+	.ENET_RD_N(ENET_RD_N),
+	.ENET_DATA(ENET_DATA),
+	
+	.power_A_B(power_A_B),
+	.power_A_C(power_A_C),
+	.power_A_D(power_A_D),
+	.power_A_E(power_A_E),
+	.power_A_F(power_A_F),
+	.power_A_G(power_A_G),
+	.power_A_H(power_A_H),
+	.power_B_C(power_B_C),
+	.power_B_D(power_B_D),
+	.power_B_E(power_B_E),
+	.power_B_F(power_B_F),
+	.power_B_G(power_B_G),
+	.power_B_H(power_B_H),
+	.power_C_D(power_C_D),
+	.power_C_E(power_C_E),
+	.power_C_F(power_C_F),
+	.power_C_G(power_C_G),
+	.power_C_H(power_C_H),
+	.power_D_E(power_D_E),
+	.power_D_F(power_D_F),
+	.power_D_G(power_D_G),
+	.power_D_H(power_D_H),
+	.power_E_F(power_E_F),
+	.power_E_G(power_E_G),
+	.power_E_H(power_E_H),
+	.power_F_G(power_F_G),
+	.power_F_H(power_F_H),
+	.power_G_H(power_G_H),
+	.sensor_detected_something(sensor_detected_something), // 3'd1 = ship, 3'd2 = wall_n, 3'd3 = wall_s, 3'd4 = wall_e, 3'd5 wall_w
+	.x_coord(x_coord),
+	.y_coord(y_coord),
+	.rx_checksum(rx_checksum), // checksum that you should get back on next transmission
+	
+	// 3+3+3+3+3+3+3+3+1+1+2+8+1+10 = 47bits
+	.power_crystal_A_hooked_up_to(power_crystal_A_hooked_up_to), // these are the hookups for the ship
+	.power_crystal_2_hooked_up_to(power_crystal_2_hooked_up_to),
+	.power_crystal_3_hooked_up_to(power_crystal_3_hooked_up_to),
+	.power_crystal_4_hooked_up_to(power_crystal_4_hooked_up_to),
+	.power_crystal_5_hooked_up_to(power_crystal_5_hooked_up_to),
+	.power_crystal_6_hooked_up_to(power_crystal_6_hooked_up_to),
+	.power_crystal_7_hooked_up_to(power_crystal_7_hooked_up_to),
+	.power_crystal_8_hooked_up_to(power_crystal_8_hooked_up_to),
+	.engines_on(engines_on),
+	.engines_left_right(engines_left_right),
+	.sensor_movement_state(sensor_movement_state), // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
+	.sensor_movement_per_sample(sensor_movement_per_sample), // 90 degrees at .5 degree increments = 180 ... Note, sensor only sampled on the second 
+	.cannon_fire(cannon_fire), // 
+	.cannon_power(cannon_power),
+	.tx_checksum(tx_checksum), // checksum that you might send to verify
+	
+	.no_packets_to_read(no_packets_to_read),
+	.link_status(link_status),
+	.player_number(1'b1), // SW[16]
+	.bad_packet(bad_packet),
+);
+endmodule
