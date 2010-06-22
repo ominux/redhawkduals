@@ -383,7 +383,7 @@ processor1 the_processor1(
 
                   );
 	
-wire [31:0]nios_packets_out; // 31=ack 30=rdy_read 15:0 - data out 29=data_ready 28=data_done_transmission
+wire [31:0]nios_packets_out; // 31=ack 30=rdy_read 15:0 - data out 29=data_ready 28=data_done_transmission 27= new_game_init
 wire [8:0]pb_address;
 wire [15:0]pb_data;
 wire pb_wren;
@@ -457,26 +457,31 @@ reg [47:0]player_send_address;
 reg [8:0]player_data_address;
 reg [3:0]interrupt_line;
 
-reg [3:0]pb_to_proc_state;
+reg [5:0]pb_to_proc_state;
 reg [8:0]count;
-parameter 	RESET_TIMER=		4'd0,
-		INIT_SEND=		4'd1,
-		SEND=			4'd2,
-		WAIT_ACK=		4'd3,
-		READ_PB=		4'd4,
-		INIT_RECEIVE=		4'd5,
-		RECEIVE_PACKETS=	4'd6,
-		WAIT_UNTIL_LOW=		4'd7,
-		RECEIVE_DATA_WRITE=	4'd8,
-		TRANSMIT_PLAYERS=	4'd9,
-		REQUEST_TX=		4'd10,
-		TX_COMPLETE=		4'd11,
-		TX_NEXT=		4'd12,
-		NEXT_ADDRESS_TO_WRITE=	4'd13,
-		PROC_INTERRUPT_FOR_TRANSFER= 4'd14,
-		COUNTDOWN=		4'hF;
+parameter 	RESET_TIMER=		5'd0,
+		INIT_SEND=		5'd1,
+		SEND=			5'd2,
+		WAIT_ACK=		5'd3,
+		READ_PB=		5'd4,
+		INIT_RECEIVE=		5'd5,
+		RECEIVE_PACKETS=	5'd6,
+		WAIT_UNTIL_LOW=		5'd7,
+		RECEIVE_DATA_WRITE=	5'd8,
+		TRANSMIT_PLAYERS=	5'd9,
+		REQUEST_TX=		5'd10,
+		TX_COMPLETE=		5'd11,
+		TX_NEXT=		5'd12,
+		NEXT_ADDRESS_TO_WRITE=	5'd13,
+		PROC_INTERRUPT_FOR_TRANSFER= 5'd14,
+		NEW_GAME= 		5'd15,
+		WAIT_FOR_USERS=		5'd16,
+		WAIT_FOR_USERS2=	5'd17,
+		COUNTDOWN=		5'b11111;
 parameter TIMER_OUT= 32'd50000000;
 reg [31:0]timer;
+reg [31:0]reset_game_timer;
+reg reset_game;
 
 always@(posedge system_clk or negedge rst_n)
 begin
@@ -489,26 +494,49 @@ begin
 		nios_packets_in[15:0] <= 16'hFFFF;
 		nios_packets_in[16] <= 1'b0;
 		nios_packets_in[31] <= 1'b0; // send request
+		nios_packets_in[27] <= 1'b0;
 		memory_bus_free <= 1'b1; 
 		sending_to_nios <= 1'b0;
 		receiving_from_nios <= 1'b0;
 		transmitting_to_players <= 1'b0;
 		interrupt_line <= 4'd0;
+		reset_game <= 1'b0;
 	end
 	else
 	begin
 		case (pb_to_proc_state)
 			RESET_TIMER:
 			begin
-				pb_to_proc_state <= (SWO[0] == 1'b1) ? COUNTDOWN : RESET_TIMER; 
+				pb_to_proc_state <= nios_packets_out[27] == 1'b1 ? NEW_GAME : (SWO[0] == 1'b1) ? COUNTDOWN : RESET_TIMER; 
 				timer <= 32'd0;
+				reset_game_timer <= 32'd0;
 				memory_bus_free <= 1'b1; 
 				sending_to_nios <= 1'b0;
 				receiving_from_nios <= 1'b0;
 				transmitting_to_players <= 1'b0;
 
+				nios_packets_in[27] <= 1'b0;
+				reset_game <= 1'b0;
+
 				nios_packets_in[31] <= 1'b0;
 				interrupt_line <= 4'd0;
+			end
+			NEW_GAME:
+			begin
+				pb_to_proc_state <= (reset_game_timer >= TIMER_OUT && SWO[2] == 1'b1) ? WAIT_FOR_USERS : NEW_GAME; 
+				reset_game_timer <= reset_game_timer + 1'b1;
+
+				/* unique window and short, so just does once */
+				reset_game <= (reset_game_timer > 32'd3 && reset_game_timer <= 32'd5) ? 1'b1 : 1'b0; // only reset the memory once
+			end
+			WAIT_FOR_USERS:
+			begin
+				pb_to_proc_state <= (SWO[2] == 1'b1) ? WAIT_FOR_USERS2 : WAIT_FOR_USERS;
+				nios_packets_in[27] <= 1'b1; // send the pulse saying the hardware is resetting
+			end
+			WAIT_FOR_USERS2:
+			begin
+				pb_to_proc_state <= (SWO[2] == 1'b0 &&  nios_packets_out[27] == 1'b0) ? RESET_TIMER : WAIT_FOR_USERS2;
 			end
 			COUNTDOWN:
 			begin
@@ -660,11 +688,11 @@ memory_debug_r_and_w debug_pb(
 		.pb_data_debug(pb_data_debug),
 		.pb_wren_debug(pb_wren_debug),
 		.read_do(SWO[13]),
-		.read_do_next(SWO[12] & pulse_fast | ~KEY[1]),
+		.read_do_next((SWO[12] & pulse_fast) | ~KEY[1]),
 		.read_start_address(9'd0),
 		.read_num(9'd128),
-		.write_do(SWO[11]),
-		.write_clear(SWO[12]),
+		.write_do(SWO[11] || reset_game),
+		.write_clear(SWO[12] || reset_game),
 		.write_start_address(9'd0),
 		.write_num(9'd510),
 		.ready_for_next(debug_memory_ready)

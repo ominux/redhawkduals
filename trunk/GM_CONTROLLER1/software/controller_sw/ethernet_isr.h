@@ -1,4 +1,5 @@
 void init_packet_interrupt_isr();
+void disable_packet_interrupt();
 #ifdef ALT_ENHANCED_INTERRUPT_API_PRESENT
 void timer_packet_interrupt_isr(void* context);
 #else

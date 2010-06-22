@@ -312,13 +312,37 @@ short straight_line_vector_projection(ship_t *ship, int angle, float x, float y,
 				c = y - line_slope*x;
 				point2.x = 0;
 				point2.y = c; 
+
+				/* don't go outside screen boundary */
+				if (point2.y < 0)
+				{
+					point2.y = 0;
+					point2.x = (0 - c)/line_slope;
+				}
+				else if (point2.y > 240)
+				{
+					point2.y = 240;
+					point2.x = (240 - c)/line_slope;
+				}
 			}
 			else 
 			{
-				/* heading towards 340*220 */
+				/* heading towards 320*240 */
 				c = y - line_slope*x;
-				point2.x = 340;
+				point2.x = 320;
 				point2.y = line_slope*point2.x + c;
+
+				/* don't go outside screen boundary */
+				if (point2.y < 0)
+				{
+					point2.y = 0;
+					point2.x = (0 - c)/line_slope;
+				}
+				else if (point2.y > 240)
+				{
+					point2.y = 240;
+					point2.x = (240 - c)/line_slope;
+				}
 			}
 		}
 		else
@@ -326,9 +350,9 @@ short straight_line_vector_projection(ship_t *ship, int angle, float x, float y,
 			/* x component of slope is 0, therefore line is perpendicular to x-axis */
 			if (angle == 360 || angle == 0)
 			{
-				/* pointing to y = 220 */
+				/* pointing to y = 240 */
 				point2.x = point1.x;
-				point2.y = 220;
+				point2.y = 240;
 			}
 			else if (angle == 180)
 			{
@@ -346,7 +370,6 @@ short straight_line_vector_projection(ship_t *ship, int angle, float x, float y,
 		}
 		else // is sensor beam
 		{
-			float scalar = sqrt((y-point2.y)*(y-point2.y) + (x-point2.x)*(x-point2.x));
 			ship->sensor_start.x = x;
 			ship->sensor_start.y = y;
 			ship->sensor_end.x = point2.x;
@@ -378,30 +401,19 @@ short straight_line_vector_projection(ship_t *ship, int angle, float x, float y,
 		}
 
 		/* if it's not a ship, return wall it hits */
-		if (point2.x == 0)
-		{
-			if (point2.y < 0)
-				return WALL_N;
-			else if (point2.y > 220)
-				return WALL_S;
-			else 
-				return WALL_W;
-		}
-		else if (point2.x == 340)
-		{
-			if (point2.y < 0)
-				return WALL_N;
-			else if (point2.y > 220)
-				return WALL_S;
-			else 
-				return WALL_E;
-		}
-		else if (point1.x == point2.x)
+		if (point2.x >= 0 && point2.x <= 320)
 		{
 			if (point2.y == 0)
 				return WALL_N;
-			else
+			else if (point2.y == 240)
 				return WALL_S;
+		}
+		else if (point2.y >= 0 && point2.y <=240)
+		{
+			if (point2.x == 0)
+				return WALL_W;
+			else if (point2.x == 320)
+				return WALL_E;
 		}
 	}
 

@@ -26,6 +26,8 @@ float **rotate_matrix;
 
 float **matrix_mult(float **matrix1, int row1, int column1, float **matrix2, int row2, int column2);
 
+void draw_font(alt_up_pixel_buffer_dev *pixel_buffer, int color, int buf, alt_u8 r0, alt_u8 r1, alt_u8 r2, alt_u8 r3, alt_u8 r4, int x0, int y0);
+
 /*---------------------------------------------------------------------------------------------
  * (function: draw_ship)
  *	SHIP is a rectangle held in a matrix...the 0th row holds x coord and the 1st row holds y coord
@@ -277,5 +279,184 @@ void draw_shot(ship_t *ship, alt_up_pixel_buffer_dev *pixel_buffer, int buf, int
 	alt_up_pixel_buffer_draw_line(pixel_buffer, 
 			roundf(ship->shot_start.x), roundf(ship->shot_start.y),
 			roundf(ship->shot_end.x), roundf(ship->shot_end.y),
-			0x0FF0 - (0x1F0*sec), buf);
+			0x0FF0 - (0x0F0*sec), buf);
+}
+
+/*---------------------------------------------------------------------------------------------
+ * (function: draw_string)
+ *-------------------------------------------------------------------------------------------*/
+void draw_string(alt_up_pixel_buffer_dev *pixel_buffer, int color, int buf, int x0, int y0, char *string, int size)
+{
+	int i;
+
+	for (i = 0; i < size; i++)
+	{
+		draw_letter(pixel_buffer, color, buf, string[i], x0+(i*6), y0);
+	}
+}
+
+/*---------------------------------------------------------------------------------------------
+ * (function: draw_letter)
+ *-------------------------------------------------------------------------------------------*/
+void draw_letter(alt_up_pixel_buffer_dev *pixel_buffer, int color, int buf, char letter, int x0, int y0)
+{
+	switch(letter)
+	{
+		case 'a':
+			draw_font(pixel_buffer, color, buf, 0x1E, 0x05, 0x05, 0x05, 0x1E, x0, y0);
+			break;
+		case 'b':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x15, 0x15, 0x15, 0x0C, x0, y0);
+			break;
+		case 'c':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x11, 0x11, 0x11, 0x11, x0, y0);
+			break;
+		case 'd':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x11, 0x11, 0x11, 0x0E, x0, y0);
+			break;
+		case 'e':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x15, 0x15, 0x15, 0x15, x0, y0);
+			break;
+		case 'f':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x05, 0x05, 0x01, 0x01, x0, y0);
+			break;
+		case 'g':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x11, 0x15, 0x15, 0x1D, x0, y0);
+			break;
+		case 'h':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x04, 0x04, 0x04, 0x1F, x0, y0);
+			break;
+		case 'i':
+			draw_font(pixel_buffer, color, buf, 0x11, 0x11, 0x1F, 0x11, 0x11, x0, y0);
+			break;
+		case 'j':
+			draw_font(pixel_buffer, color, buf, 0x08, 0x10, 0x11, 0x11, 0x0F, x0, y0);
+			break;
+		case 'k':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x04, 0x06, 0x05, 0x18, x0, y0);
+			break;
+		case 'l':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x10, 0x10, 0x10, 0x10, x0, y0);
+			break;
+		case 'm':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x02, 0x04, 0x02, 0x1F, x0, y0);
+			break;
+		case 'n':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x01, 0x0E, 0x10, 0x1F, x0, y0);
+			break;
+		case 'o':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x11, 0x11, 0x11, 0x0E, x0, y0);
+			break;
+		case 'p':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x05, 0x05, 0x05, 0x02, x0, y0);
+			break;
+		case 'q':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x11, 0x11, 0x1E, 0x10, x0, y0);
+			break;
+		case 'r':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x05, 0x05, 0x0D, 0x12, x0, y0);
+			break;
+		case 's':
+			draw_font(pixel_buffer, color, buf, 0x12, 0x15, 0x15, 0x15, 0x09, x0, y0);
+			break;
+		case 't':
+			draw_font(pixel_buffer, color, buf, 0x01, 0x01, 0x1F, 0x01, 0x01, x0, y0);
+			break;
+		case 'u':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x10, 0x10, 0x10, 0x0E, x0, y0);
+			break;
+		case 'v':
+			draw_font(pixel_buffer, color, buf, 0x03, 0x0C, 0x10, 0x0C, 0x03, x0, y0);
+			break;
+		case 'w':
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x08, 0x04, 0x08, 0x1F, x0, y0);
+			break;
+		case 'x':
+			draw_font(pixel_buffer, color, buf, 0x11, 0x0A, 0x04, 0x0A, 0x11, x0, y0);
+			break;
+		case 'y':
+			draw_font(pixel_buffer, color, buf, 0x03, 0x04, 0x1C, 0x04, 0x03, x0, y0);
+			break;
+		case 'z':
+			draw_font(pixel_buffer, color, buf, 0x19, 0x15, 0x15, 0x15, 0x13, x0, y0);
+			break;
+		case '-':
+			draw_font(pixel_buffer, color, buf, 0x04, 0x04, 0x04, 0x04, 0x04, x0, y0);
+			break;
+		case '0':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x13, 0x15, 0x19, 0x0E, x0, y0);
+			break;
+		case '1':
+			draw_font(pixel_buffer, color, buf, 0x10, 0x12, 0x1F, 0x10, 0x10, x0, y0);
+			break;
+		case '2':
+			draw_font(pixel_buffer, color, buf, 0x12, 0x19, 0x15, 0x12, 0x00, x0, y0);
+			break;
+		case '3':
+			draw_font(pixel_buffer, color, buf, 0x0A, 0x11, 0x15, 0x15, 0x0A, x0, y0);
+			break;
+		case '4':
+			draw_font(pixel_buffer, color, buf, 0x07, 0x04, 0x04, 0x1F, 0x04, x0, y0);
+			break;
+		case '5':
+			draw_font(pixel_buffer, color, buf, 0x17, 0x15, 0x15, 0x09, 0x00, x0, y0);
+			break;
+		case '6':
+			draw_font(pixel_buffer, color, buf, 0x0E, 0x15, 0x15, 0x15, 0x08, x0, y0);
+			break;
+		case '7':
+			draw_font(pixel_buffer, color, buf, 0x01, 0x01, 0x1D, 0x03, 0x01, x0, y0);
+			break;
+		case '8':
+			draw_font(pixel_buffer, color, buf, 0x0A, 0x15, 0x15, 0x15, 0x0A, x0, y0);
+			break;
+		case '9':
+			draw_font(pixel_buffer, color, buf, 0x02, 0x15, 0x15, 0x15, 0x0E, x0, y0);
+			break;
+		case ' ':
+			draw_font(pixel_buffer, color, buf, 0x00, 0x00, 0x00, 0x00, 0x00, x0, y0);
+			break;
+		default:
+			draw_font(pixel_buffer, color, buf, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, x0, y0);
+			break;
+	}
+}
+
+/*---------------------------------------------------------------------------------------------
+ * (function: draw_font)
+ * Goes through the 32 bit code from top point in the y direction
+ *-------------------------------------------------------------------------------------------*/
+void draw_font(alt_up_pixel_buffer_dev *pixel_buffer, int color, int buf, alt_u8 r0, alt_u8 r1, alt_u8 r2, alt_u8 r3, alt_u8 r4, int x0, int y0)
+{
+	int i, j;
+	alt_u8 mask = 1;
+	alt_u8 row;
+
+	for (i = 0; i < 5; i++)
+	{
+		if (i == 0)
+			row = r0;
+		else if (i == 1)
+			row = r1;
+		else if (i == 2)
+			row = r2;
+		else if (i == 3)
+			row = r3;
+		else if (i == 4)
+			row = r4;
+		mask = 1;
+
+		for (j = 0; j < 5; j++)
+		{
+			if ((mask & row) > 0)
+			{
+				/* there's a bit here */
+				alt_up_pixel_buffer_draw_line(pixel_buffer, 
+					x0+i, y0+j,
+					x0+i, y0+j,
+					color, buf);
+			}
+			mask = mask << 1;
+		}
+	}
 }

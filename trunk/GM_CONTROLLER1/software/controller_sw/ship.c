@@ -11,15 +11,15 @@
 
 #include <priv/alt_file.h>
 #include <stddef.h>
-#include <alt_types.h>
 #include <sys/alt_dev.h>
 
 #include "sys/alt_irq.h"
 #include "sys/alt_stdio.h"
 #include "globals.h"
+#include "types.h"
+#include "util.h"
 #include "draw.h"
 
-#include "types.h"
 
 #define SHIP_SIZE 10
 /* 4 for rectangle, 2 for cannon direction */
@@ -44,21 +44,27 @@ void init_ship(ship_t *ship, int start_angle, int start_x, int start_y, int play
 	ship->sensor_angle = 0;
 
 	ship->reset = FALSE;
+	ship->stalled = FALSE;
 	ship->velocity = (vector_t*)malloc(sizeof(vector_t)*2);
 	ship->velocity->x = 0;
 	ship->velocity->y = 0;
 	ship->axis = (vector_t*)malloc(sizeof(vector_t)*2);
 
+	/* allocate string containers */
+	ship->power_budget_string = (string_t *)malloc(sizeof(string_t));
+	ship->power_budget_string->string = (char*)malloc(sizeof(char)*(10+1));
+	number_to_character_string(ship->power_budget_string, 0);
+
 	/* initialize colors for player ships */
 	if (player_number == 0)
 	{
-		ship->color[0] = 0xFFFF;
-		ship->color[1] = 0xFF00; // gun direction
+		ship->color[0] = 0xFC3F;
+		ship->color[1] = 0xFF00; // gun color
 	}
 	else
 	{
 		ship->color[0] = 0x00FF;
-		ship->color[1] = 0xFF00; // gun direction
+		ship->color[1] = 0xFF00; // gun color
 	}
 
 	ship->row = 3;
@@ -119,6 +125,7 @@ void reset_ship(ship_t *ship, int start_angle, int start_x, int start_y)
 	ship->y = start_y;
 
 	ship->reset = FALSE;
+	ship->stalled = FALSE;
 	ship->velocity->x = 0;
 	ship->velocity->y = 0;
 	ship->sensor_angle = 0;
@@ -133,6 +140,54 @@ void reset_ship(ship_t *ship, int start_angle, int start_x, int start_y)
 	copy_matrix(ship->temp_matrix, ship->row, ship->column, ship->matrix_location);
 	/* do translation on the location */
 	translate_a_matrix(ship->matrix_location, ship->row, ship->column, start_x, start_y);
+}
+
+/*---------------------------------------------------------------------------------------------
+ * (function: init_ship)
+ *-------------------------------------------------------------------------------------------*/
+void re_init_ship(ship_t *ship, int start_angle, int start_x, int start_y, int player_number)
+{
+	ship->player_number = player_number;
+	ship->angle = start_angle;
+	ship->x = start_x;
+	ship->y = start_y;
+	ship->sensor_angle = 0;
+
+	ship->reset = FALSE;
+	ship->stalled = TRUE;
+	ship->stalled_for_minutes = 0; 
+	ship->velocity->x = 0;
+	ship->velocity->y = 0;
+	ship->power_budget_this_minute = 0;
+	ship->power_budget_this_minute_old = -1;
+	number_to_character_string(ship->power_budget_string, 0);
+
+	/* reset sensors */
+	ship->shot_start.x = start_x;
+	ship->shot_start.y = start_y;
+	ship->shot_end.x = start_x;
+	ship->shot_end.y = start_y;
+	ship->sensor_start.x = start_x;
+	ship->sensor_start.y = start_y;
+	ship->sensor_end.x = start_x;
+	ship->sensor_end.y = start_y;
+
+	/* make a copy */
+	copy_matrix(ship->matrix_start, ship->row, ship->column, ship->temp_matrix);
+	/* the location, now and then */
+	/* rotate the ship to the start angle */
+	rotate_a_matrix(ship->temp_matrix, ship->row, ship->column, start_angle);
+
+	/* copy this into the moved version */
+	copy_matrix(ship->temp_matrix, ship->row, ship->column, ship->matrix_location);
+	/* do translation on the location */
+	translate_a_matrix(ship->matrix_location, ship->row, ship->column, start_x, start_y);
+
+	/* initialize the power crystal amplification */
+	initialize_power_crystals(ship);
+
+	/* redo the shot */
+	ship->shot_fired_x_seconds_ago = 0;
 }
 
 #define A 0
@@ -209,53 +264,62 @@ void initialize_power_crystals(ship_t *ship)
  *-------------------------------------------------------------------------------------------*/
 int power_calculation(ship_t *ship)
 {
-	int power_budget = 0;
+	int power_budget = BASIC_POWER_COST;
 	int current_power;
-
+	/* bitmask to check if the crystal is already hooked up */
+	alt_u8 used = 0x00;
+	
 	current_power = lookup_power_link(ship, A, ship->c2_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c2_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c2_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c2_hookedup_to, ship->c3_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c3_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c3_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c3_hookedup_to, ship->c4_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c4_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c4_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c4_hookedup_to, ship->c5_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c5_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c5_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c5_hookedup_to, ship->c6_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c6_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c6_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c6_hookedup_to, ship->c7_hookedup_to);
-	if (current_power == 0)
+	if (current_power == 0 || (used & (1 << ship->c7_hookedup_to)) >= 1)
 	{
 		return 0;
 	}
+	used = used | (1 << ship->c7_hookedup_to);
 	power_budget += current_power;
 
 	current_power = lookup_power_link(ship, ship->c7_hookedup_to, ship->c8_hookedup_to);
-	if (current_power == 0)
+	/* the last spot needs to go to A */
+	if (current_power == 0 && ship->c8_hookedup_to == 0)
 	{
 		return 0;
 	}
