@@ -89,6 +89,7 @@ begin
 			end
 			DELAY_SPIN:
 			begin
+				/* need the delay spin so that we give the ethernet module time to read all the packet */
 				e_state <= (delay_spin_count == 8'd200) ? STATE_LENGTH1 : DELAY_SPIN; 
 
 				pb_data_rx <= 16'h0;
@@ -99,8 +100,6 @@ begin
 				counter <= 11'h0;
 				rx_waiting <= 1'b0;
 				delay_spin_count <= delay_spin_count +1'b1;
-
-	//			rx_fifo_rd_req <= (delay_spin_count == 8'd200) ? 1'b1 : 1'b0;
 			end
 			STATE_LENGTH1: 
 			begin

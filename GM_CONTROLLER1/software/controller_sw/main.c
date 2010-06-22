@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "system.h"
 
@@ -11,6 +12,7 @@
 
 #include "globals.h"
 #include "types.h"
+#include "util.h"
 #include "ethernet_isr.h"
 #include "draw.h"
 #include "game_loop.h"
@@ -22,6 +24,8 @@ ship_t p1_ship;
 ship_t p2_ship;
 
 alt_u16 packets[512];
+short new_game;
+alt_u32 output_packet_reg;
 
 /*---------------------------------------------------------------------------------------------
  * (function: main)
@@ -32,7 +36,21 @@ int main()
 	FILE *LCD;
 	alt_u32 output_packet_reg = 0;
 	int partial_second_counter;
-	int second_counter = 0;
+	int second_counter = 1;
+	short game_status;
+	volatile alt_u32 input_packet_reg;
+	alt_u32 mask;
+	short start_up_system = TRUE;
+	short first_draw = TRUE;
+	char game_start[9] = "new game";
+	static string_t time;
+
+	/* initialize time */
+	time.string = (char*)malloc(sizeof(char)*(10));
+	number_to_character_string(&time, 0);
+
+	/* intialize the new game */
+	new_game = TRUE;
 
 	/* initialize the lcd */
 	LCD = fopen(LCD_0_NAME, "w");
@@ -60,91 +78,162 @@ int main()
 	init_ship(&p1_ship, 315, 22, 22, 0);
 	init_ship(&p2_ship, 135, 298, 218, 1);
 
-	/* Clear the screen */
-	alt_up_pixel_buffer_clear_screen (pixel_buf_dev, 0);
-
-	/* initialize the receive path */
-	init_packet_interrupt_isr();
-
-	game_loop(0, 0, 0);
 	while (1)
 	{
-#if 0 // POLLING
-		alt_u32 mask;
-		volatile alt_u32 debug_reg;
-		volatile alt_u32 input_packet_reg;
-
-		/* read the port - polling */
-		input_packet_reg = IORD_ALTERA_AVALON_PIO_DATA(INPUT_PACKET_BASE);
-		debug_reg = IORD_ALTERA_AVALON_PIO_DATA(SWITCHES_BASE);
-		mask = 1 << 31;
-
-		//printf("Waiting for send: %x\n", input_packet_reg);
-	       
-		if ((input_packet_reg & mask) > 0)
-		{
-
-			/* IF - the read request signal is high */
-			//printf("Reading Packets\n");
-
-			get_player_info()
-		}
-#endif
 		/* once all packets transmitted to nios display */
-
-		fprintf(LCD, "p1 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
-				p1_ship.cA_hookedup_to,	
-				p1_ship.c2_hookedup_to,	
-				p1_ship.c3_hookedup_to,	
-				p1_ship.c4_hookedup_to,	
-				p1_ship.c5_hookedup_to,	
-				p1_ship.c6_hookedup_to,	
-				p1_ship.c7_hookedup_to,	
-				p1_ship.c8_hookedup_to,	
-				p1_ship.engine,
-				p1_ship.engine_left_right,
-				p1_ship.sensor_state,
-				p1_ship.sensor_move,
-				p1_ship.cannon_fire,
-				p1_ship.cannon_power);
-	
-		fprintf(LCD, "p2 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
-				p2_ship.cA_hookedup_to,	
-				p2_ship.c2_hookedup_to,	
-				p2_ship.c3_hookedup_to,	
-				p2_ship.c4_hookedup_to,	
-				p2_ship.c5_hookedup_to,	
-				p2_ship.c6_hookedup_to,	
-				p2_ship.c7_hookedup_to,	
-				p2_ship.c8_hookedup_to,	
-				p2_ship.engine,
-				p2_ship.engine_left_right,
-				p2_ship.sensor_state,
-				p2_ship.sensor_move,
-				p2_ship.cannon_fire,
-				p2_ship.cannon_power);
-	
-		usleep(ONE_SEC/UPDATES_PER_SECOND); // every half second
-
-		if (isr_update == TRUE)
+		if (new_game == TRUE)
 		{
-			partial_second_counter = 0;
-			game_loop(1, second_counter, 0);
+			mask = 1 << 27; // reserve input 28 for communicate game on
+
+			/* tell the hardawre it's a new game */
+			output_packet_reg = output_packet_reg | mask;
+			IOWR_ALTERA_AVALON_PIO_DATA(OUTPUT_PACKET_BASE, output_packet_reg);
+
+			input_packet_reg = IORD_ALTERA_AVALON_PIO_DATA(INPUT_PACKET_BASE);
+			while ((input_packet_reg & mask) == 0) // wait until it's = 1
+			{
+				output_packet_reg = output_packet_reg | mask;
+				IOWR_ALTERA_AVALON_PIO_DATA(OUTPUT_PACKET_BASE, output_packet_reg);
+				input_packet_reg = IORD_ALTERA_AVALON_PIO_DATA(INPUT_PACKET_BASE);
+
+				fprintf(LCD, "Start game with switch 2 - High to Low\n");
+			}
+
+			/* Clear the screen */
+			alt_up_pixel_buffer_clear_screen (pixel_buf_dev, 0);
+
+			/* disable while we set up the new game */
+			disable_packet_interrupt();
 			isr_update = FALSE;
-		}
-		else
-		{
-			partial_second_counter ++;
-			game_loop(0, second_counter, partial_second_counter);
-		}
 
-		if (second_counter == 60)
-		{
-			second_counter = 0;
+			/* go into the game loop */
+			new_game = FALSE;
+		
+			/* reinitialize ships */
+			re_init_ship(&p1_ship, 315, 22, 22, 0);
+			re_init_ship(&p2_ship, 135, 298, 218, 1);
+
+			/* tell the hardawre it's a new game */
+			output_packet_reg = 0;
+			IOWR_ALTERA_AVALON_PIO_DATA(OUTPUT_PACKET_BASE, output_packet_reg);
+
+			/* initialize the receive path */
+			init_packet_interrupt_isr();
 		}
-		else
+		else if (new_game == FALSE)
 		{
-			second_counter++;
+			fprintf(LCD, "p1 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
+					p1_ship.cA_hookedup_to,	
+					p1_ship.c2_hookedup_to,	
+					p1_ship.c3_hookedup_to,	
+					p1_ship.c4_hookedup_to,	
+					p1_ship.c5_hookedup_to,	
+					p1_ship.c6_hookedup_to,	
+					p1_ship.c7_hookedup_to,	
+					p1_ship.c8_hookedup_to,	
+					p1_ship.engine,
+					p1_ship.engine_left_right,
+					p1_ship.sensor_state,
+					p1_ship.sensor_move,
+					p1_ship.cannon_fire,
+					p1_ship.cannon_power);
+		
+			fprintf(LCD, "p2 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
+					p2_ship.cA_hookedup_to,	
+					p2_ship.c2_hookedup_to,	
+					p2_ship.c3_hookedup_to,	
+					p2_ship.c4_hookedup_to,	
+					p2_ship.c5_hookedup_to,	
+					p2_ship.c6_hookedup_to,	
+					p2_ship.c7_hookedup_to,	
+					p2_ship.c8_hookedup_to,	
+					p2_ship.engine,
+					p2_ship.engine_left_right,
+					p2_ship.sensor_state,
+					p2_ship.sensor_move,
+					p2_ship.cannon_fire,
+					p2_ship.cannon_power);
+		
+			usleep(ONE_SEC/UPDATES_PER_SECOND); // every half second
+	
+			if (start_up_system == TRUE)
+			{
+				game_status = LIVE;
+
+				draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 100, game_start, 8);
+
+				/* wait for a message so we can start */
+				if (isr_update == TRUE)
+				{
+					isr_update = FALSE;
+					start_up_system = FALSE;
+					/* clean message */
+					draw_string(pixel_buf_dev, 0x0000, 0, 100, 100, game_start, 8);
+				}
+			}
+			else
+			{
+				if (isr_update == TRUE)
+				{
+
+					/* time keeping and drawing of seconds */
+					draw_string(pixel_buf_dev, 0x0000, 0, 155, 3, time.string, time.size);
+					second_counter++;
+					number_to_character_string(&time, second_counter);
+					draw_string(pixel_buf_dev, 0xFFFF, 0, 155, 3, time.string, time.size);
+
+					partial_second_counter = 0;
+					isr_update = FALSE;
+					if (second_counter == 60)
+					{
+						game_status = game_loop(1, 0, 0, first_draw);
+						second_counter = 1;
+					}
+					else
+					{
+						game_status = game_loop(1, second_counter, 0, first_draw);
+					}
+
+				}
+				else
+				{
+					partial_second_counter ++;
+					game_status = game_loop(0, second_counter, partial_second_counter, first_draw);
+				}
+
+				if (first_draw == TRUE)
+				{
+					first_draw = FALSE;
+				}
+			}
+
+			if (game_status != LIVE)
+			{
+				/* END of game */
+				char game_over[10] = "game over";
+				char player1[8] = "p1 wins";
+				char player2[8] = "p2 wins";
+				char tie[4] = "tie";
+				
+				draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 100, game_over, 9);
+				if (game_status == P1)
+				{
+					draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 106, player1, 7);
+				}
+				else if (game_status == P2)
+				{
+					draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 106, player2, 7);
+				}
+				else if (game_status == TIE)
+				{
+					draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 106, tie, 3);
+				}
+
+				new_game = TRUE;
+				second_counter = 1;
+				start_up_system = TRUE;
+				first_draw = TRUE;
+			}
 		}
  	}
 

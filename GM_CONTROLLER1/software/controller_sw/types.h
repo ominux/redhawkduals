@@ -25,7 +25,8 @@
 /* cost to accelerate in a second */
 #define ENGINE_POWER_COST 1
 /* cost to run your ship */
-#define BASIC_POWER_COST 1
+#define BASIC_POWER_COST 10
+#define GAME_OVER_STALL_TIME 2
 
 #ifndef TRUE
 #define TRUE 1
@@ -39,6 +40,7 @@
 
 #define ship_t struct ship_t_t
 #define vector_t struct vector_t_t
+#define string_t struct string_t_t
 
 #ifndef TYPES_H
 #define TYPES_H
@@ -49,8 +51,23 @@ typedef enum
 	WALL_N, // 2
 	WALL_S, // 3
 	WALL_E, // 4
-	WALL_W  // 5
+	WALL_W,  // 5
+	ERROR
 } collisions;
+
+typedef enum 
+{
+	TIE,
+	P1,
+	P2, 
+	LIVE
+} game_status;
+
+string_t
+{
+	char *string;
+	int size;
+};
 
 vector_t
 {
@@ -103,7 +120,10 @@ ship_t
 	alt_u16 checksum ;
 	short shot_fired_x_seconds_ago; // takes 5 seconds to recharge
 	int power_budget_this_minute;
+	int power_budget_this_minute_old;
+	string_t *power_budget_string;
 	short stalled; // stall until start of next minute
+	short stalled_for_minutes; 
 	float sensor_angle; // current angle
 
 	alt_u8 A_B_val;

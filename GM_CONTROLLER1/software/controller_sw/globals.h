@@ -8,3 +8,5 @@ extern ship_t p2_ship;
 extern alt_u16 packets[512];
 
 extern short isr_update;
+
+extern alt_u32 output_packet_reg;

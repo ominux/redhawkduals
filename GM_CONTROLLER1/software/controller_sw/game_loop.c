@@ -6,6 +6,7 @@
 
 #include "types.h"
 #include "globals.h"
+#include "util.h"
 #include "collision_detection.h"
 #include "ethernet_isr.h"
 #include "draw.h"
@@ -16,7 +17,7 @@ ship_t *get_opponent_ship(ship_t *ship);
 /*---------------------------------------------------------------------------------------------
  * (function: game_loop)
  *-------------------------------------------------------------------------------------------*/
-void game_loop(int data_update, int second, int partial_second)
+short game_loop(int data_update, int second, int partial_second, short first_run)
 {
 	int i;
 	ship_t *ship;
@@ -26,28 +27,54 @@ void game_loop(int data_update, int second, int partial_second)
 	int y; 
 	int angle;
 
-	/* check for energy stall and power levels */
-	if (second == 0)
+	/* record anything that might be changed and needs refreshing */
+	p1_ship.power_budget_this_minute_old = p1_ship.power_budget_this_minute;
+	p2_ship.power_budget_this_minute_old = p2_ship.power_budget_this_minute;
+
+	if (second == -1)
+	{
+		/* waiting for game to start - will happen after messages sent */
+		return LIVE;
+	}
+	/* check for energy stall, power levels, and game_over */
+	else if (second == 0)
 	{
 		/* new minute */
-		p1_ship.power_budget_this_minute = power_calculation(&p1_ship) - BASIC_POWER_COST; 
-		if (p1_ship.power_budget_this_minute > 0)
+		p1_ship.power_budget_this_minute = power_calculation(&p1_ship); 
+		if (p1_ship.power_budget_this_minute > BASIC_POWER_COST)
 		{
 			p1_ship.stalled = FALSE;
+			p1_ship.stalled_for_minutes = 0;
 		}
 		else
 		{
 			p1_ship.stalled = TRUE;
+			p1_ship.stalled_for_minutes ++;
 		}
 
-		p2_ship.power_budget_this_minute = power_calculation(&p2_ship) - BASIC_POWER_COST;
-		if (p2_ship.power_budget_this_minute > 0)
+		p2_ship.power_budget_this_minute = power_calculation(&p2_ship);
+		if (p2_ship.power_budget_this_minute > BASIC_POWER_COST)
 		{
 			p2_ship.stalled = FALSE;
+			p2_ship.stalled_for_minutes = 0;
 		}
 		else
 		{
 			p2_ship.stalled = TRUE;
+			p2_ship.stalled_for_minutes ++;
+		}
+
+		if (p1_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME && p2_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME)
+		{
+			return TIE;
+		}
+		else if (p1_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME)
+		{
+			return P1;
+		}
+		else if (p2_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME)
+		{
+			return P2;
 		}
 	}
 	
@@ -110,6 +137,11 @@ void game_loop(int data_update, int second, int partial_second)
 				
 				/* calculate the acceleration costs */
 				ship->power_budget_this_minute -= ENGINE_POWER_COST;
+				if (ship->power_budget_this_minute < BASIC_POWER_COST)
+				{
+					/* overused power budget for the minute...stall */
+					ship->stalled = TRUE;
+				}
 		
 				/* ship direction relative to our coordinate system */
 				new_velocity.x = ship->velocity->x + cos((ship->angle-270)*PI/180);
@@ -204,7 +236,7 @@ void game_loop(int data_update, int second, int partial_second)
 				/* calculate the power cost */
 				ship->power_budget_this_minute -= ship->cannon_power;
 
-				if (ship->power_budget_this_minute < 0)
+				if (ship->power_budget_this_minute < BASIC_POWER_COST)
 				{
 					/* overused power budget for the minute...stall */
 					ship->stalled = TRUE;
@@ -220,13 +252,13 @@ void game_loop(int data_update, int second, int partial_second)
 			}
 		}
 
+		/* draw the sensor lines */
+		draw_sensor(ship, pixel_buf_dev, 0);
 		/* draw shot */
 		if (ship->shot_fired_x_seconds_ago != 0)
 		{
 			draw_shot(ship, pixel_buf_dev, 0, ship->shot_fired_x_seconds_ago);
 		}
-		/* draw the sensor lines */
-		draw_sensor(ship, pixel_buf_dev, 0);
 	}
 
 	for (i = 0; i < 2; i++)
@@ -263,9 +295,39 @@ void game_loop(int data_update, int second, int partial_second)
 		}
 	}
 
+	/* draw all screen text */
+	/* drow power allocation */
+	{
+		char power[7] = "power-";
+		int spot1_x = 5;
+		int spot2_x = 165;
+
+		draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 210, power, 6);
+		spot1_x += 6*6;
+		draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 210, power, 6);
+		spot2_x += 6*6;
+
+		if (p1_ship.power_budget_this_minute != p1_ship.power_budget_this_minute_old || first_run == TRUE)
+		{	
+			draw_string(pixel_buf_dev, 0x0000, 0, spot1_x, 210, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
+			number_to_character_string(p1_ship.power_budget_string, p1_ship.power_budget_this_minute);
+			draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 210, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
+		}
+		if (p2_ship.power_budget_this_minute != p2_ship.power_budget_this_minute_old || first_run == TRUE)
+		{
+			draw_string(pixel_buf_dev, 0x0000, 0, spot2_x, 210, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
+			number_to_character_string(p2_ship.power_budget_string, p2_ship.power_budget_this_minute);
+			draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 210, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
+		}
+		spot1_x += 3*6;
+		spot2_x += 3*6;
+	}
+
 	/* update drawings */
 	draw_ship(&p2_ship, pixel_buf_dev, 0);
 	draw_ship(&p1_ship, pixel_buf_dev, 0);
+
+	return LIVE;
 }
 
 /*---------------------------------------------------------------------------------------------

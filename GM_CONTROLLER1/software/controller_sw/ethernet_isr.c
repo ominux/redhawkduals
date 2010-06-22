@@ -50,7 +50,7 @@ void timer_packet_interrupt_isr(void* context, alt_u32 id)
 void get_player_info()
 {
 	volatile alt_u32 input_packet_reg;
-	alt_u32 output_packet_reg = 0;
+//	alt_u32 output_packet_reg = 0;
 	alt_u32 mask;
 	int i;
 
@@ -166,6 +166,20 @@ void init_packet_interrupt_isr()
 #endif
 }
 
+/*---------------------------------------------------------------------------------------------
+ * disable_packet_interrupt
+ *-------------------------------------------------------------------------------------------*/
+void disable_packet_interrupt()
+{
+	/* Disable interrupts from the button_pio PIO component. */
+	IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PUSH_BUTTONS_BASE, 0x0);
+	/* Un-register the IRQ handler by passing a null handler. */
+#ifdef ALT_ENHANCED_INTERRUPT_API_PRESENT
+	alt_ic_isr_register(PUSH_BUTTONS_IRQ_INTERRUPT_CONTROLLER_ID, BUTTON_PIO_IRQ, NULL, NULL, NULL);
+#else
+	alt_irq_register( PUSH_BUTTONS_IRQ, NULL, NULL );
+#endif
+}
 /*---------------------------------------------------------------------------------------------
  * update_packets_to_send_back
  *-------------------------------------------------------------------------------------------*/
