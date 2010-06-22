@@ -26,6 +26,7 @@ ship_t p2_ship;
 alt_u16 packets[512];
 short new_game;
 alt_u32 output_packet_reg;
+alt_u8 game_mode;
 
 /*---------------------------------------------------------------------------------------------
  * (function: main)
@@ -83,6 +84,8 @@ int main()
 		/* once all packets transmitted to nios display */
 		if (new_game == TRUE)
 		{
+			alt_u8 input_mode;
+
 			mask = 1 << 27; // reserve input 28 for communicate game on
 
 			/* tell the hardawre it's a new game */
@@ -97,6 +100,18 @@ int main()
 				input_packet_reg = IORD_ALTERA_AVALON_PIO_DATA(INPUT_PACKET_BASE);
 
 				fprintf(LCD, "Start game with switch 2 - High to Low\n");
+			}
+
+			/* mode for the game */
+			/* if 24 is high == 1 then crystal structure ignored */
+			input_mode = (input_packet_reg >> 24) & 0x07;
+			if (input_mode == 1)
+			{
+				game_mode = POWER_SIMPLE;
+			}
+			else
+			{
+				game_mode = BASIC;
 			}
 
 			/* Clear the screen */
@@ -177,10 +192,10 @@ int main()
 				{
 
 					/* time keeping and drawing of seconds */
-					draw_string(pixel_buf_dev, 0x0000, 0, 155, 3, time.string, time.size);
+					draw_string(pixel_buf_dev, 0x0000, 0, 150, 3, time.string, time.size);
 					second_counter++;
 					number_to_character_string(&time, second_counter);
-					draw_string(pixel_buf_dev, 0xFFFF, 0, 155, 3, time.string, time.size);
+					draw_string(pixel_buf_dev, 0xFFFF, 0, 150, 3, time.string, time.size);
 
 					partial_second_counter = 0;
 					isr_update = FALSE;

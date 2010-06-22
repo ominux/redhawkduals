@@ -109,9 +109,6 @@ void init_ship(ship_t *ship, int start_angle, int start_x, int start_y, int play
 	/* do translation on the location */
 	translate_a_matrix(ship->matrix_location, ship->row, ship->column, start_x, start_y);
 
-	/* initialize the power crystal amplification */
-	initialize_power_crystals(ship);
-
 	ship->shot_fired_x_seconds_ago = 0;
 }
 
@@ -125,7 +122,6 @@ void reset_ship(ship_t *ship, int start_angle, int start_x, int start_y)
 	ship->y = start_y;
 
 	ship->reset = FALSE;
-	ship->stalled = FALSE;
 	ship->velocity->x = 0;
 	ship->velocity->y = 0;
 	ship->sensor_angle = 0;
@@ -229,34 +225,69 @@ void degrade_crystals_based_on_shot(ship_t *ship, int amount)
  *-------------------------------------------------------------------------------------------*/
 void initialize_power_crystals(ship_t *ship)
 {
-	ship->A_B_val = rand() % 8 + 3;
-	ship->A_C_val = rand() % 8 + 3;
-	ship->A_D_val = rand() % 8 + 3;
-	ship->A_E_val = rand() % 8 + 3;
-	ship->A_F_val = rand() % 8 + 3;
-	ship->A_G_val = rand() % 8 + 3;
-	ship->A_H_val = rand() % 8 + 3;
-	ship->B_C_val = rand() % 8 + 3;
-	ship->B_D_val = rand() % 8 + 3;
-	ship->B_E_val = rand() % 8 + 3;
-	ship->B_F_val = rand() % 8 + 3;
-	ship->B_G_val = rand() % 8 + 3;
-	ship->B_H_val = rand() % 8 + 3;
-	ship->C_D_val = rand() % 8 + 3;
-	ship->C_E_val = rand() % 8 + 3;
-	ship->C_F_val = rand() % 8 + 3;
-	ship->C_G_val = rand() % 8 + 3;
-	ship->C_H_val = rand() % 8 + 3;
-	ship->D_E_val = rand() % 8 + 3;
-	ship->D_F_val = rand() % 8 + 3;
-	ship->D_G_val = rand() % 8 + 3;
-	ship->D_H_val = rand() % 8 + 3;
-	ship->E_F_val = rand() % 8 + 3;
-	ship->E_G_val = rand() % 8 + 3;
-	ship->E_H_val = rand() % 8 + 3;
-	ship->F_G_val = rand() % 8 + 3;
-	ship->F_H_val = rand() % 8 + 3;
-	ship->G_H_val = rand() % 8 + 3;
+	if (game_mode == BASIC)
+	{
+		ship->A_B_val = rand() % 8 + 3;
+		ship->A_C_val = rand() % 8 + 3;
+		ship->A_D_val = rand() % 8 + 3;
+		ship->A_E_val = rand() % 8 + 3;
+		ship->A_F_val = rand() % 8 + 3;
+		ship->A_G_val = rand() % 8 + 3;
+		ship->A_H_val = rand() % 8 + 3;
+		ship->B_C_val = rand() % 8 + 3;
+		ship->B_D_val = rand() % 8 + 3;
+		ship->B_E_val = rand() % 8 + 3;
+		ship->B_F_val = rand() % 8 + 3;
+		ship->B_G_val = rand() % 8 + 3;
+		ship->B_H_val = rand() % 8 + 3;
+		ship->C_D_val = rand() % 8 + 3;
+		ship->C_E_val = rand() % 8 + 3;
+		ship->C_F_val = rand() % 8 + 3;
+		ship->C_G_val = rand() % 8 + 3;
+		ship->C_H_val = rand() % 8 + 3;
+		ship->D_E_val = rand() % 8 + 3;
+		ship->D_F_val = rand() % 8 + 3;
+		ship->D_G_val = rand() % 8 + 3;
+		ship->D_H_val = rand() % 8 + 3;
+		ship->E_F_val = rand() % 8 + 3;
+		ship->E_G_val = rand() % 8 + 3;
+		ship->E_H_val = rand() % 8 + 3;
+		ship->F_G_val = rand() % 8 + 3;
+		ship->F_H_val = rand() % 8 + 3;
+		ship->G_H_val = rand() % 8 + 3;
+	}
+	else
+	{
+		ship->A_B_val = 8;
+		ship->A_C_val = 8;
+		ship->A_D_val = 8;
+		ship->A_E_val = 8;
+		ship->A_F_val = 8;
+		ship->A_G_val = 8;
+		ship->A_H_val = 8;
+		ship->B_C_val = 8;
+		ship->B_D_val = 8;
+		ship->B_E_val = 8;
+		ship->B_F_val = 8;
+		ship->B_G_val = 8;
+		ship->B_H_val = 8;
+		ship->C_D_val = 8;
+		ship->C_E_val = 8;
+		ship->C_F_val = 8;
+		ship->C_G_val = 8;
+		ship->C_H_val = 8;
+		ship->D_E_val = 8;
+		ship->D_F_val = 8;
+		ship->D_G_val = 8;
+		ship->D_H_val = 8;
+		ship->E_F_val = 8;
+		ship->E_G_val = 8;
+		ship->E_H_val = 8;
+		ship->F_G_val = 8;
+		ship->F_H_val = 8;
+		ship->G_H_val = 8;
+
+	}
 }
 
 /*---------------------------------------------------------------------------------------------
@@ -269,63 +300,121 @@ int power_calculation(ship_t *ship)
 	/* bitmask to check if the crystal is already hooked up */
 	alt_u8 used = 0x00;
 	
-	current_power = lookup_power_link(ship, A, ship->c2_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c2_hookedup_to)) >= 1)
+	if (game_mode == POWER_SIMPLE)
 	{
-		return 0;
+		/* assumes A to B to C ... H to A */
+		current_power = lookup_power_link(ship, A, 1);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 1, 2);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 3, 4);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 4, 5);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 5, 6);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 6, 7);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, 7, 0);
+		if (current_power == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		return power_budget;
 	}
-	used = used | (1 << ship->c2_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c2_hookedup_to, ship->c3_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c3_hookedup_to)) >= 1)
+	else
 	{
-		return 0;
+		/* hookup of crystals sent by user */
+		current_power = lookup_power_link(ship, A, ship->c2_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c2_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c2_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c2_hookedup_to, ship->c3_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c3_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c3_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c3_hookedup_to, ship->c4_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c4_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c4_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c4_hookedup_to, ship->c5_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c5_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c5_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c5_hookedup_to, ship->c6_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c6_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c6_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c6_hookedup_to, ship->c7_hookedup_to);
+		if (current_power == 0 || (used & (1 << ship->c7_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->c7_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->c7_hookedup_to, ship->c8_hookedup_to);
+		/* the last spot needs to go to A */
+		if (current_power == 0 && ship->c8_hookedup_to == 0)
+		{
+			return 0;
+		}
+		power_budget += current_power;
+	
+		return power_budget;
 	}
-	used = used | (1 << ship->c3_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c3_hookedup_to, ship->c4_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c4_hookedup_to)) >= 1)
-	{
-		return 0;
-	}
-	used = used | (1 << ship->c4_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c4_hookedup_to, ship->c5_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c5_hookedup_to)) >= 1)
-	{
-		return 0;
-	}
-	used = used | (1 << ship->c5_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c5_hookedup_to, ship->c6_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c6_hookedup_to)) >= 1)
-	{
-		return 0;
-	}
-	used = used | (1 << ship->c6_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c6_hookedup_to, ship->c7_hookedup_to);
-	if (current_power == 0 || (used & (1 << ship->c7_hookedup_to)) >= 1)
-	{
-		return 0;
-	}
-	used = used | (1 << ship->c7_hookedup_to);
-	power_budget += current_power;
-
-	current_power = lookup_power_link(ship, ship->c7_hookedup_to, ship->c8_hookedup_to);
-	/* the last spot needs to go to A */
-	if (current_power == 0 && ship->c8_hookedup_to == 0)
-	{
-		return 0;
-	}
-	power_budget += current_power;
-
-	return power_budget;
 }
 
 /*---------------------------------------------------------------------------------------------

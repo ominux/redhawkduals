@@ -383,7 +383,7 @@ processor1 the_processor1(
 
                   );
 	
-wire [31:0]nios_packets_out; // 31=ack 30=rdy_read 15:0 - data out 29=data_ready 28=data_done_transmission 27= new_game_init
+wire [31:0]nios_packets_out; // 31=ack 30=rdy_read 15:0 - data out 29=data_ready 28=data_done_transmission 27= new_game_init 26, 25, 24 = mode signals
 wire [8:0]pb_address;
 wire [15:0]pb_data;
 wire pb_wren;
@@ -504,6 +504,11 @@ begin
 	end
 	else
 	begin
+
+		nios_packets_in[26] <= SWO[6];
+		nios_packets_in[25] <= SWO[5];
+		nios_packets_in[24] <= SWO[4];
+
 		case (pb_to_proc_state)
 			RESET_TIMER:
 			begin
