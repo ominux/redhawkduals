@@ -46,6 +46,12 @@
 #define TYPES_H
 typedef enum 
 {
+	BASIC,
+	POWER_SIMPLE,
+} game_modes;
+
+typedef enum 
+{
 	NO_COLLISION,
 	SHIP, // 1
 	WALL_N, // 2

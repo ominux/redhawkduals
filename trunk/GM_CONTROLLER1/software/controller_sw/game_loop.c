@@ -142,23 +142,25 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 					/* overused power budget for the minute...stall */
 					ship->stalled = TRUE;
 				}
-		
-				/* ship direction relative to our coordinate system */
-				new_velocity.x = ship->velocity->x + cos((ship->angle-270)*PI/180);
-				new_velocity.y = ship->velocity->y + sin((ship->angle-270)*PI/180);
-		
-				/* scalar to find speed */
-				scalar = sqrt(new_velocity.x*new_velocity.x + ship->velocity->y*ship->velocity->y);
-		
-				/* if too fast then scale back to max velocity */
-				if (scalar > MAX_SPEED)
+				else
 				{
-					new_velocity.x = new_velocity.x/scalar * MAX_SPEED;
-					new_velocity.y = new_velocity.y/scalar * MAX_SPEED;
+					/* ship direction relative to our coordinate system */
+					new_velocity.x = ship->velocity->x + cos((ship->angle-270)*PI/180);
+					new_velocity.y = ship->velocity->y + sin((ship->angle-270)*PI/180);
+			
+					/* scalar to find speed */
+					scalar = sqrt(new_velocity.x*new_velocity.x + ship->velocity->y*ship->velocity->y);
+			
+					/* if too fast then scale back to max velocity */
+					if (scalar > MAX_SPEED)
+					{
+						new_velocity.x = new_velocity.x/scalar * MAX_SPEED;
+						new_velocity.y = new_velocity.y/scalar * MAX_SPEED;
+					}
+	
+					ship->velocity->x = new_velocity.x;
+					ship->velocity->y = new_velocity.y;
 				}
-
-				ship->velocity->x = new_velocity.x;
-				ship->velocity->y = new_velocity.y;
 			}
 		}
 	
@@ -231,8 +233,6 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 			/* Firing */
 			if (ship->cannon_fire > 0 && ship->shot_fired_x_seconds_ago == 0)
 			{
-				/* shot fired */	
-				ship->shot_fired_x_seconds_ago = 1;
 				/* calculate the power cost */
 				ship->power_budget_this_minute -= ship->cannon_power;
 
@@ -243,6 +243,9 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 				}
 				else
 				{
+					/* shot fired */	
+					ship->shot_fired_x_seconds_ago = 1;
+
 					if (straight_line_vector_projection(ship, ship->angle, ship->x, ship->y, TRUE) == SHIP)
 					{
 						/* causes damage to the opponent */
@@ -261,6 +264,7 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 		}
 	}
 
+	/* update the info and clean ships */
 	for (i = 0; i < 2; i++)
 	{
 		if (i == 0)
@@ -296,34 +300,34 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 	}
 
 	/* draw all screen text */
-	/* drow power allocation */
 	{
 		char power[7] = "power-";
 		int spot1_x = 5;
 		int spot2_x = 165;
 
-		draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 210, power, 6);
+		/* draw power allocation */
+		draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 230, power, 6);
 		spot1_x += 6*6;
-		draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 210, power, 6);
+		draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 230, power, 6);
 		spot2_x += 6*6;
 
 		if (p1_ship.power_budget_this_minute != p1_ship.power_budget_this_minute_old || first_run == TRUE)
 		{	
-			draw_string(pixel_buf_dev, 0x0000, 0, spot1_x, 210, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
+			draw_string(pixel_buf_dev, 0x0000, 0, spot1_x, 230, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
 			number_to_character_string(p1_ship.power_budget_string, p1_ship.power_budget_this_minute);
-			draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 210, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
+			draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 230, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
 		}
 		if (p2_ship.power_budget_this_minute != p2_ship.power_budget_this_minute_old || first_run == TRUE)
 		{
-			draw_string(pixel_buf_dev, 0x0000, 0, spot2_x, 210, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
+			draw_string(pixel_buf_dev, 0x0000, 0, spot2_x, 230, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
 			number_to_character_string(p2_ship.power_budget_string, p2_ship.power_budget_this_minute);
-			draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 210, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
+			draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 230, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
 		}
 		spot1_x += 3*6;
 		spot2_x += 3*6;
 	}
 
-	/* update drawings */
+	/* update ship drawings */
 	draw_ship(&p2_ship, pixel_buf_dev, 0);
 	draw_ship(&p1_ship, pixel_buf_dev, 0);
 

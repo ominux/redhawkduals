@@ -300,7 +300,8 @@ begin
 			end
 			UPACKET9:
 			begin
-				receive_send_state <= UPACKET10;
+				after_spin_read <= UPACKET10;
+				receive_send_state <= SPIN_READ1;
 
 				x_coord <= pb_q_rx; 
 
@@ -308,7 +309,8 @@ begin
 			end
 			UPACKET10:
 			begin
-				receive_send_state <= UPACKET11;
+				after_spin_read <= UPACKET11;
+				receive_send_state <= SPIN_READ1;
 
 				y_coord <= pb_q_rx; 
 
@@ -316,7 +318,8 @@ begin
 			end
 			UPACKET11:
 			begin
-				receive_send_state <= BEGIN_SEND;
+				after_spin_read <= BEGIN_SEND;
+				receive_send_state <= SPIN_READ1;
 
 				rx_checksum <= pb_q_rx; 
 
