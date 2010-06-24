@@ -123,7 +123,8 @@ module ship_proto
 		TD_VS,							//	TV Decoder V_SYNC
 		TD_RESET,						//	TV Decoder Reset
 		////////////////////	GPIO	////////////////////////////
-		GPIO_0,							//	GPIO Connection 0
+		GPIO_0i,							//	GPIO Connection 0
+		GPIO_0o,							//	GPIO Connection 0
 		GPIO_1							//	GPIO Connection 1
 	);
 
@@ -250,7 +251,8 @@ input			TD_HS;					//	TV Decoder H_SYNC
 input			TD_VS;					//	TV Decoder V_SYNC
 output			TD_RESET;				//	TV Decoder Reset
 ////////////////////////	GPIO	////////////////////////////////
-inout	[35:0]	GPIO_0;					//	GPIO Connection 0
+output 	[17:0]	GPIO_0o;					//	GPIO Connection 0
+input	[17:0]	GPIO_0i;					//	GPIO Connection 0
 inout	[35:0]	GPIO_1;					//	GPIO Connection 1
 
 assign	LCD_ON		=	1'b1;
@@ -267,7 +269,7 @@ assign	I2C_SDAT	=	1'bz;
 assign	AUD_ADCLRCK	=	1'bz;
 assign	AUD_DACLRCK	=	1'bz;
 assign	AUD_BCLK	=	1'bz;
-assign	GPIO_0		=	36'hzzzzzzzzz;
+//assign	GPIO_0		=	36'hzzzzzzzzz;
 assign	GPIO_1		=	36'hzzzzzzzzz;
 
 wire rst_n;
@@ -339,14 +341,14 @@ wire [15:0]rx_checksum; // checksum that you should get back on next transmissio
 
 /* These are the information that needs to be sent about the ship */
 // 3+3+3+3+3+3+3+3+1+1+2+8+1+10 = 47bits
-reg [2:0] power_crystal_A_hooked_up_to; // these are the hookups for the ship
-reg [2:0] power_crystal_2_hooked_up_to;
-reg [2:0] power_crystal_3_hooked_up_to;
-reg [2:0] power_crystal_4_hooked_up_to;
-reg [2:0] power_crystal_5_hooked_up_to;
-reg [2:0] power_crystal_6_hooked_up_to;
-reg [2:0] power_crystal_7_hooked_up_to;
-reg [2:0] power_crystal_8_hooked_up_to;
+wire [2:0] power_crystal_A_hooked_up_to; // these are the hookups for the ship
+wire [2:0] power_crystal_2_hooked_up_to;
+wire [2:0] power_crystal_3_hooked_up_to;
+wire [2:0] power_crystal_4_hooked_up_to;
+wire [2:0] power_crystal_5_hooked_up_to;
+wire [2:0] power_crystal_6_hooked_up_to;
+wire [2:0] power_crystal_7_hooked_up_to;
+wire [2:0] power_crystal_8_hooked_up_to;
 reg engines_on;
 reg [1:0]engines_left_right; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
 reg [1:0]sensor_movement_state; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
@@ -456,19 +458,29 @@ begin
 	end
 end
 
+wire get_crystal_array;
+assign get_crystal_array = SWO[8];
+crystal_read read_crystals(
+		.system_clk(system_clk), 
+		.rst_n(rst_n), 
+		.get_crystal_array(get_crystal_array), 
+		.GPIO_0i(GPIO_0i[7:0]),
+		.GPIO_0o(GPIO_0o[7:0]),
+		.power_crystal_A_hooked_up_to(power_crystal_A_hooked_up_to),
+		.power_crystal_2_hooked_up_to(power_crystal_2_hooked_up_to),
+		.power_crystal_3_hooked_up_to(power_crystal_3_hooked_up_to),
+		.power_crystal_4_hooked_up_to(power_crystal_4_hooked_up_to),
+		.power_crystal_5_hooked_up_to(power_crystal_5_hooked_up_to),
+		.power_crystal_6_hooked_up_to(power_crystal_6_hooked_up_to),
+		.power_crystal_7_hooked_up_to(power_crystal_7_hooked_up_to),
+		.power_crystal_8_hooked_up_to(power_crystal_8_hooked_up_to)
+		);
+
 /* this sets values for your ship to control - very simple */
 always @ (posedge system_clk or negedge rst_n) 
 begin
 	if (rst_n == 1'b0) 
 	begin
-		power_crystal_A_hooked_up_to <= 3'd0;
-		power_crystal_2_hooked_up_to <= 3'd0;
-		power_crystal_3_hooked_up_to <= 3'd0;
-		power_crystal_4_hooked_up_to <= 3'd0;
-		power_crystal_5_hooked_up_to <= 3'd0;
-		power_crystal_6_hooked_up_to <= 3'd0;
-		power_crystal_7_hooked_up_to <= 3'd0;
-		power_crystal_8_hooked_up_to <= 3'd0;
 		engines_on <= 1'b0;
 		engines_left_right <= 2'b00;
 		sensor_movement_state <= 2'b00;
@@ -480,16 +492,6 @@ begin
 	else 
 	begin
 		tx_checksum <= 16'hFAFA;
-
-		// random crystal connection based on player 
-		power_crystal_A_hooked_up_to <= 3'd7;
-		power_crystal_2_hooked_up_to <= 3'd6;
-		power_crystal_3_hooked_up_to <= 3'd5;
-		power_crystal_4_hooked_up_to <= 3'd4;
-		power_crystal_5_hooked_up_to <= 3'd3;
-		power_crystal_6_hooked_up_to <= 3'd2;
-		power_crystal_7_hooked_up_to <= 3'd1;
-		power_crystal_8_hooked_up_to <= 3'd0;
 
 		// Accelerate
 		engines_on <= SWO[0]; // fire cannon or not
@@ -608,6 +610,7 @@ data_tx_rx packet_mover(
 	.no_packets_to_read(no_packets_to_read),
 	.link_status(link_status),
 	.player_number(1'b1), // SW[16]
-	.bad_packet(bad_packet),
+	.bad_packet(bad_packet)
 );
+
 endmodule
