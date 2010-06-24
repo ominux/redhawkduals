@@ -677,7 +677,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2; // 2 bytes per 16 bit packet
 			end
@@ -689,7 +689,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
@@ -702,7 +702,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end 
@@ -715,7 +715,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
@@ -728,7 +728,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
@@ -741,7 +741,8 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
+
 
 				counter <= counter + 2'd2;
 			end 
@@ -754,7 +755,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
@@ -767,7 +768,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
@@ -780,7 +781,7 @@ begin
 
 				pb_data_rx <= 16'h0;
 				pb_wren_rx <= 1'b0; 
-				pb_address_rx <= 9'h0; 
+				pb_address_rx <= 6'h0; 
 
 				counter <= counter + 2'd2;
 			end
