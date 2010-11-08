@@ -88,6 +88,7 @@ begin
 		power_crystal_6_hooked_up_to <= 4'd0;
 		power_crystal_7_hooked_up_to <= 4'd0;
 		power_crystal_8_hooked_up_to <= 4'd0;
+		timer <= 20'd0;
 	end
 	else 
 	begin

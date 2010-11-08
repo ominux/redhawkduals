@@ -68,9 +68,9 @@ typedef enum
 typedef enum 
 {
 	NO_COLLISION,
-	SHIP, // 1
-	WALL_N, // 2
-	WALL_S, // 3
+	WALL_N, // 1
+	WALL_S, // 2
+	SHIP, // 3
 	WALL_E, // 4
 	WALL_W,  // 5
 	ERROR
