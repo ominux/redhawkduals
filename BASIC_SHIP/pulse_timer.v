@@ -1,4 +1,4 @@
-i/*
+/*
 
 This software/hardware design was originally created by Peter Jamieson
 jamiespa@muohio.edu  http://www.users.muohio.edu/jamiespa/

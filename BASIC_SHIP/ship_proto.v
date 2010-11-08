@@ -361,7 +361,7 @@ wire [3:0] power_E_H;
 wire [3:0] power_F_G;
 wire [3:0] power_F_H;
 wire [3:0] power_G_H;
-wire [3:0]sensor_detected_something; // 3'b000 = ship, 3'b001 = object, 3'b010 = boundary
+wire [3:0]sensor_detected_something; 
 wire [15:0] x_coord;
 wire [15:0] y_coord;
 wire [15:0]rx_checksum; // checksum that you should get back on next transmission
@@ -457,6 +457,11 @@ begin
 					to_see1 <= rx_checksum;
 					to_see2 <= rx_checksum;
 				end
+				9'd9:
+				begin
+					to_see1 <= {1'b0, power_crystal_A_hooked_up_to, 1'b0, power_crystal_2_hooked_up_to, 1'b0, power_crystal_3_hooked_up_to, 1'b0, power_crystal_4_hooked_up_to};
+					to_see2 <= {1'b0, power_crystal_5_hooked_up_to, 1'b0, power_crystal_6_hooked_up_to, 1'b0, power_crystal_7_hooked_up_to, 1'b0, power_crystal_8_hooked_up_to};
+				end
 				default:
 				begin
 					to_see1 <= 16'hFFFF;
@@ -466,7 +471,7 @@ begin
 	
 			if (pulse_2_sec_1_clk_on == 1'b1)
 			begin
-				if (count == 8'd8)
+				if (count == 8'd9)
 				begin
 					count <= 8'd0;
 				end
@@ -612,7 +617,7 @@ data_tx_rx packet_mover(
 	.power_F_G(power_F_G),
 	.power_F_H(power_F_H),
 	.power_G_H(power_G_H),
-	.sensor_detected_something(sensor_detected_something), // 3'd1 = ship, 3'd2 = wall_n, 3'd3 = wall_s, 3'd4 = wall_e, 3'd5 wall_w
+	.sensor_detected_something(sensor_detected_something), // 3'd3 = ship, 3'd1 = wall_n, 3'd2 = wall_s, 3'd4 = wall_e, 3'd5 wall_w
 	.x_coord(x_coord),
 	.y_coord(y_coord),
 	.rx_checksum(rx_checksum), // checksum that you should get back on next transmission
@@ -636,7 +641,7 @@ data_tx_rx packet_mover(
 	
 	.no_packets_to_read(no_packets_to_read),
 	.link_status(link_status),
-	.player_number(1'b1), // SW[16]
+	.player_number(SW[16]), // SW[16]
 	.bad_packet(bad_packet)
 );
 
