@@ -526,15 +526,7 @@ begin
 		tx_checksum <= 16'hFAFA;
 
 		// Accelerate
-		engines_on <= SWO[0]; // fire cannon or not
-		if (SWO[0] == 1'b1)
-		begin
-			engines_left_right <= 1'b1;
-		end
-		else
-		begin
-			engines_left_right <= 1'b0;
-		end
+		engines_on <= SWO[0]; // engine on or not
 
 		// Movement dir
 		if (SWO[1] == 1'b0)
