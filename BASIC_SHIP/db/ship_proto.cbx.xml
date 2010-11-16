@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="ship_proto">
+		<CBX_INST_ENTRY INSTANCE_NAME="|ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|rx_data_fifo:rx_fifo|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_0jo1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|rx_data_fifo:tx_fifo|dcfifo:dcfifo_component" CBX_FILE_NAME="dcfifo_ueo1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ship_proto|data_tx_rx:packet_mover|packet_buffer:p2_packets_rx|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_l4a1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|ship_proto|data_tx_rx:packet_mover|packet_buffer:p2_packets_tx|altsyncram:altsyncram_component" CBX_FILE_NAME="altsyncram_l4a1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>
