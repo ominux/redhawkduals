@@ -24,7 +24,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-*/ 
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -150,7 +150,7 @@ int main()
 
 			/* go into the game loop */
 			new_game = FALSE;
-		
+
 			/* reinitialize ships */
 			re_init_ship(&p1_ship, 315, 22, 22, 0);
 			re_init_ship(&p2_ship, 135, 298, 218, 1);
@@ -164,40 +164,38 @@ int main()
 		}
 		else if (new_game == FALSE)
 		{
-			fprintf(LCD, "p1 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
-					p1_ship.cA_hookedup_to,	
-					p1_ship.c2_hookedup_to,	
-					p1_ship.c3_hookedup_to,	
-					p1_ship.c4_hookedup_to,	
-					p1_ship.c5_hookedup_to,	
-					p1_ship.c6_hookedup_to,	
-					p1_ship.c7_hookedup_to,	
-					p1_ship.c8_hookedup_to,	
+			fprintf(LCD, "p1 c:%x%x%x%x%x%x%x%x;e:%x l_r:%x; dir:%x spe:%x; fire:%x pow:%x\np2 c:%x%x%x%x%x%x%x%x;e:%x l_r:%x; dir:%x spe:%x; fire:%x pow:%x\n",
+					p1_ship.cA_hookedup_to,
+					p1_ship.c2_hookedup_to,
+					p1_ship.c3_hookedup_to,
+					p1_ship.c4_hookedup_to,
+					p1_ship.c5_hookedup_to,
+					p1_ship.c6_hookedup_to,
+					p1_ship.c7_hookedup_to,
+					p1_ship.c8_hookedup_to,
 					p1_ship.engine,
 					p1_ship.engine_left_right,
 					p1_ship.sensor_state,
 					p1_ship.sensor_move,
 					p1_ship.cannon_fire,
-					p1_ship.cannon_power);
-		
-			fprintf(LCD, "p2 c: %x %x %x %x %x %x %x %x; e: %x l_r: %x;\ns dir: %x spe: %x; fire: %x pow: %x\n",
-					p2_ship.cA_hookedup_to,	
-					p2_ship.c2_hookedup_to,	
-					p2_ship.c3_hookedup_to,	
-					p2_ship.c4_hookedup_to,	
-					p2_ship.c5_hookedup_to,	
-					p2_ship.c6_hookedup_to,	
-					p2_ship.c7_hookedup_to,	
-					p2_ship.c8_hookedup_to,	
+					p1_ship.cannon_power,
+					p2_ship.cA_hookedup_to,
+					p2_ship.c2_hookedup_to,
+					p2_ship.c3_hookedup_to,
+					p2_ship.c4_hookedup_to,
+					p2_ship.c5_hookedup_to,
+					p2_ship.c6_hookedup_to,
+					p2_ship.c7_hookedup_to,
+					p2_ship.c8_hookedup_to,
 					p2_ship.engine,
 					p2_ship.engine_left_right,
 					p2_ship.sensor_state,
 					p2_ship.sensor_move,
 					p2_ship.cannon_fire,
 					p2_ship.cannon_power);
-		
+
 			usleep(ONE_SEC/UPDATES_PER_SECOND); // every half second
-	
+
 			if (start_up_system == TRUE)
 			{
 				game_status = LIVE;
@@ -256,7 +254,7 @@ int main()
 				char player1[8] = "p1 wins";
 				char player2[8] = "p2 wins";
 				char tie[4] = "tie";
-				
+
 				draw_string(pixel_buf_dev, 0xFFFF, 0, 100, 100, game_over, 9);
 				if (game_status == P1)
 				{

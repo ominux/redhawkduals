@@ -1,0 +1,384 @@
+
+State Machine - |gm_controller|receive_packet_state
+Name receive_packet_state.DO_RECEIVE receive_packet_state.RECEIVE_NEXT receive_packet_state.WAIT_RECEIVE receive_packet_state.START_RECEIVE 
+receive_packet_state.START_RECEIVE 0 0 0 0 
+receive_packet_state.WAIT_RECEIVE 0 0 1 1 
+receive_packet_state.RECEIVE_NEXT 0 1 0 1 
+receive_packet_state.DO_RECEIVE 1 0 0 1 
+
+State Machine - |gm_controller|pb_to_proc_state
+Name pb_to_proc_state.COUNTDOWN pb_to_proc_state.WAIT_FOR_USERS2 pb_to_proc_state.WAIT_FOR_USERS pb_to_proc_state.NEW_GAME pb_to_proc_state.PROC_INTERRUPT_FOR_TRANSFER pb_to_proc_state.NEXT_ADDRESS_TO_WRITE pb_to_proc_state.TX_NEXT pb_to_proc_state.TX_COMPLETE pb_to_proc_state.REQUEST_TX pb_to_proc_state.TRANSMIT_PLAYERS pb_to_proc_state.RECEIVE_DATA_WRITE pb_to_proc_state.WAIT_UNTIL_LOW pb_to_proc_state.RECEIVE_PACKETS pb_to_proc_state.INIT_RECEIVE pb_to_proc_state.READ_PB pb_to_proc_state.WAIT_ACK pb_to_proc_state.SEND pb_to_proc_state.INIT_SEND pb_to_proc_state.RESET_TIMER 
+pb_to_proc_state.RESET_TIMER 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+pb_to_proc_state.INIT_SEND 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+pb_to_proc_state.SEND 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+pb_to_proc_state.WAIT_ACK 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+pb_to_proc_state.READ_PB 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+pb_to_proc_state.INIT_RECEIVE 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+pb_to_proc_state.RECEIVE_PACKETS 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+pb_to_proc_state.WAIT_UNTIL_LOW 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+pb_to_proc_state.RECEIVE_DATA_WRITE 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+pb_to_proc_state.TRANSMIT_PLAYERS 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.REQUEST_TX 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.TX_COMPLETE 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.TX_NEXT 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.NEXT_ADDRESS_TO_WRITE 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.PROC_INTERRUPT_FOR_TRANSFER 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.NEW_GAME 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.WAIT_FOR_USERS 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.WAIT_FOR_USERS2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+pb_to_proc_state.COUNTDOWN 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|tx_packet:send_packet|e_state
+Name e_state.ERROR e_state.DELAY_SPIN e_state.IDLE2 e_state.STATE_LENGTH e_state.STATE_DATA_WRITE e_state.STATE_DATA_READ2 e_state.STATE_DATA_READ1 e_state.STATE_ETHER e_state.STATE_MAC1 e_state.STATE_MAC2 e_state.STATE_MAC3 e_state.IDLE 
+e_state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 
+e_state.STATE_MAC3 0 0 0 0 0 0 0 0 0 0 1 1 
+e_state.STATE_MAC2 0 0 0 0 0 0 0 0 0 1 0 1 
+e_state.STATE_MAC1 0 0 0 0 0 0 0 0 1 0 0 1 
+e_state.STATE_ETHER 0 0 0 0 0 0 0 1 0 0 0 1 
+e_state.STATE_DATA_READ1 0 0 0 0 0 0 1 0 0 0 0 1 
+e_state.STATE_DATA_READ2 0 0 0 0 0 1 0 0 0 0 0 1 
+e_state.STATE_DATA_WRITE 0 0 0 0 1 0 0 0 0 0 0 1 
+e_state.STATE_LENGTH 0 0 0 1 0 0 0 0 0 0 0 1 
+e_state.IDLE2 0 0 1 0 0 0 0 0 0 0 0 1 
+e_state.DELAY_SPIN 0 1 0 0 0 0 0 0 0 0 0 1 
+e_state.ERROR 1 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|rx_packet:recevie_packet|e_state
+Name e_state.DELAY_SPIN e_state.STATE_LENGTH2 e_state.STATE_MAC1_2 e_state.STATE_MAC2_2 e_state.STATE_MAC3_2 e_state.ERROR e_state.IDLE2 e_state.STATE_LENGTH1 e_state.STATE_DATA_WRITE1 e_state.STATE_DATA_READ e_state.STATE_ETHER e_state.STATE_MAC1 e_state.STATE_MAC2 e_state.STATE_MAC3 e_state.IDLE 
+e_state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+e_state.STATE_MAC3 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+e_state.STATE_MAC2 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+e_state.STATE_MAC1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+e_state.STATE_ETHER 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+e_state.STATE_DATA_READ 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+e_state.STATE_DATA_WRITE1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+e_state.STATE_LENGTH1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+e_state.IDLE2 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+e_state.ERROR 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+e_state.STATE_MAC3_2 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+e_state.STATE_MAC2_2 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+e_state.STATE_MAC1_2 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+e_state.STATE_LENGTH2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+e_state.DELAY_SPIN 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|dm9000a_controller:ethernet|issue_register
+Name issue_register.0000000011111111 issue_register.0000000011111110 issue_register.0000000011110010 issue_register.0000000011110000 issue_register.0000000000011111 issue_register.0000000000011101 issue_register.0000000000011100 issue_register.0000000000011011 issue_register.0000000000011010 issue_register.0000000000011001 issue_register.0000000000011000 issue_register.0000000000010111 issue_register.0000000000010110 issue_register.0000000000010101 issue_register.0000000000010100 issue_register.0000000000010011 issue_register.0000000000010010 issue_register.0000000000010001 issue_register.0000000000010000 issue_register.0000000000000101 issue_register.0000000000000001 issue_register.0000000000000000 
+issue_register.0000000000000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+issue_register.0000000000000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+issue_register.0000000000000101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+issue_register.0000000000010000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+issue_register.0000000000010001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+issue_register.0000000000010010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+issue_register.0000000000010011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+issue_register.0000000000010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+issue_register.0000000000010101 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+issue_register.0000000000010110 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000010111 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011000 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011001 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011010 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011011 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011100 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011101 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011111 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011110000 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011110010 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011111110 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011111111 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|dm9000a_controller:ethernet|cmd_post_spin_state
+Name cmd_post_spin_state.00010 cmd_post_spin_state.00100 cmd_post_spin_state.00011 
+cmd_post_spin_state.00010 0 0 0 
+cmd_post_spin_state.00011 1 0 1 
+cmd_post_spin_state.00100 1 1 0 
+
+State Machine - |gm_controller|dm9000a_controller:ethernet|cmd_state
+Name cmd_state.10010 cmd_state.10001 cmd_state.10000 cmd_state.01111 cmd_state.01110 cmd_state.01101 cmd_state.01100 cmd_state.01011 cmd_state.01010 cmd_state.01001 cmd_state.01000 cmd_state.00111 cmd_state.00110 cmd_state.00101 cmd_state.00100 cmd_state.00011 cmd_state.00010 cmd_state.00000 cmd_state.00001 
+cmd_state.00001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+cmd_state.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+cmd_state.00010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+cmd_state.00011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+cmd_state.00100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+cmd_state.00101 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+cmd_state.00110 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+cmd_state.00111 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+cmd_state.01000 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+cmd_state.01001 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+cmd_state.01010 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01011 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01100 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01101 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01110 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01111 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10000 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10001 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10010 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|dm9000a_controller:ethernet|state
+Name state.101110 state.101101 state.101100 state.101011 state.101010 state.101001 state.101000 state.100111 state.100110 state.100101 state.100100 state.100011 state.100010 state.100001 state.100000 state.011111 state.011110 state.011101 state.011100 state.011011 state.011010 state.011001 state.011000 state.010111 state.010110 state.010101 state.010100 state.010011 state.010010 state.010001 state.010000 state.001111 state.001110 state.001101 state.001100 state.001011 state.001010 state.001001 state.001000 state.000111 state.000110 state.000101 state.000100 state.000011 state.000010 state.000001 state.000000 
+state.000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.000011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.000101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.000110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.000111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.001000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.001010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.001011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.001100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100001 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100010 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100011 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100100 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100101 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100110 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100111 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101000 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101001 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101010 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101011 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101100 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101101 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101110 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|memory_debug_r_and_w:debug_pb|m_state
+Name m_state.M_WRITE_NEXT1 m_state.M_INIT_WRITE m_state.M_INCREMENT m_state.M_READ_NEXT m_state.M_INIT_READ m_state.M_IDLE3 m_state.M_IDLE2 m_state.M_IDLE1 
+m_state.M_IDLE1 0 0 0 0 0 0 0 0 
+m_state.M_IDLE2 0 0 0 0 0 0 1 1 
+m_state.M_IDLE3 0 0 0 0 0 1 0 1 
+m_state.M_INIT_READ 0 0 0 0 1 0 0 1 
+m_state.M_READ_NEXT 0 0 0 1 0 0 0 1 
+m_state.M_INCREMENT 0 0 1 0 0 0 0 1 
+m_state.M_INIT_WRITE 0 1 0 0 0 0 0 1 
+m_state.M_WRITE_NEXT1 1 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|sdram_0:the_sdram_0|m_next
+Name m_next.010000000 m_next.000010000 m_next.000001000 m_next.000000001 
+m_next.000000001 0 0 0 0 
+m_next.000001000 0 0 1 1 
+m_next.000010000 0 1 0 1 
+m_next.010000000 1 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|sdram_0:the_sdram_0|m_state
+Name m_state.100000000 m_state.010000000 m_state.001000000 m_state.000100000 m_state.000010000 m_state.000001000 m_state.000000100 m_state.000000010 m_state.000000001 
+m_state.000000001 0 0 0 0 0 0 0 0 0 
+m_state.000000010 0 0 0 0 0 0 0 1 1 
+m_state.000000100 0 0 0 0 0 0 1 0 1 
+m_state.000001000 0 0 0 0 0 1 0 0 1 
+m_state.000010000 0 0 0 0 1 0 0 0 1 
+m_state.000100000 0 0 0 1 0 0 0 0 1 
+m_state.001000000 0 0 1 0 0 0 0 0 1 
+m_state.010000000 0 1 0 0 0 0 0 0 1 
+m_state.100000000 1 0 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|sdram_0:the_sdram_0|i_next
+Name i_next.111 i_next.101 i_next.010 i_next.000 
+i_next.000 0 0 0 0 
+i_next.010 0 0 1 1 
+i_next.101 0 1 0 1 
+i_next.111 1 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|sdram_0:the_sdram_0|i_state
+Name i_state.111 i_state.101 i_state.011 i_state.010 i_state.001 i_state.000 
+i_state.000 0 0 0 0 0 0 
+i_state.001 0 0 0 0 1 1 
+i_state.010 0 0 0 1 0 1 
+i_state.011 0 0 1 0 0 1 
+i_state.101 0 1 0 0 0 1 
+i_state.111 1 0 0 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_nios2_oci:the_cpu_0_nios2_oci|cpu_0_jtag_debug_module_wrapper:the_cpu_0_jtag_debug_module_wrapper|cpu_0_jtag_debug_module_tck:the_cpu_0_jtag_debug_module_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|audio_and_video_config_0:the_audio_and_video_config_0|s_alavon_slave
+Name s_alavon_slave.I2C_STATE_3_COMPLETE s_alavon_slave.I2C_STATE_2_TRANSFERING s_alavon_slave.I2C_STATE_1_START s_alavon_slave.I2C_STATE_0_IDLE 
+s_alavon_slave.I2C_STATE_0_IDLE 0 0 0 0 
+s_alavon_slave.I2C_STATE_1_START 0 0 1 1 
+s_alavon_slave.I2C_STATE_2_TRANSFERING 0 1 0 1 
+s_alavon_slave.I2C_STATE_3_COMPLETE 1 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|audio_and_video_config_0:the_audio_and_video_config_0|Altera_UP_I2C:I2C_Controller|s_i2c_transceiver
+Name s_i2c_transceiver.I2C_STATE_6_COMPLETE s_i2c_transceiver.I2C_STATE_5_STOP_BIT s_i2c_transceiver.I2C_STATE_4_TRANSFER_ACK s_i2c_transceiver.I2C_STATE_3_TRANSFER_BYTE s_i2c_transceiver.I2C_STATE_2_START_BIT s_i2c_transceiver.I2C_STATE_1_PRE_START s_i2c_transceiver.I2C_STATE_0_IDLE 
+s_i2c_transceiver.I2C_STATE_0_IDLE 0 0 0 0 0 0 0 
+s_i2c_transceiver.I2C_STATE_1_PRE_START 0 0 0 0 0 1 1 
+s_i2c_transceiver.I2C_STATE_2_START_BIT 0 0 0 0 1 0 1 
+s_i2c_transceiver.I2C_STATE_3_TRANSFER_BYTE 0 0 0 1 0 0 1 
+s_i2c_transceiver.I2C_STATE_4_TRANSFER_ACK 0 0 1 0 0 0 1 
+s_i2c_transceiver.I2C_STATE_5_STOP_BIT 0 1 0 0 0 0 1 
+s_i2c_transceiver.I2C_STATE_6_COMPLETE 1 0 0 0 0 0 1 
+
+State Machine - |gm_controller|processor1:the_processor1|audio_and_video_config_0:the_audio_and_video_config_0|Altera_UP_I2C_AV_Auto_Initialize:Auto_Initialize|s_i2c_auto_init
+Name s_i2c_auto_init.AUTO_STATE_7_DONE s_i2c_auto_init.AUTO_STATE_6_INCREASE_COUNTER s_i2c_auto_init.AUTO_STATE_5_SEND_STOP_BIT s_i2c_auto_init.AUTO_STATE_4_WAIT s_i2c_auto_init.AUTO_STATE_3_TRANSFER_BYTE_2 s_i2c_auto_init.AUTO_STATE_2_TRANSFER_BYTE_1 s_i2c_auto_init.AUTO_STATE_1_SEND_START_BIT s_i2c_auto_init.AUTO_STATE_0_CHECK_STATUS 
+s_i2c_auto_init.AUTO_STATE_0_CHECK_STATUS 0 0 0 0 0 0 0 0 
+s_i2c_auto_init.AUTO_STATE_1_SEND_START_BIT 0 0 0 0 0 0 1 1 
+s_i2c_auto_init.AUTO_STATE_2_TRANSFER_BYTE_1 0 0 0 0 0 1 0 1 
+s_i2c_auto_init.AUTO_STATE_3_TRANSFER_BYTE_2 0 0 0 0 1 0 0 1 
+s_i2c_auto_init.AUTO_STATE_4_WAIT 0 0 0 1 0 0 0 1 
+s_i2c_auto_init.AUTO_STATE_5_SEND_STOP_BIT 0 0 1 0 0 0 0 1 
+s_i2c_auto_init.AUTO_STATE_6_INCREASE_COUNTER 0 1 0 0 0 0 0 1 
+s_i2c_auto_init.AUTO_STATE_7_DONE 1 0 0 0 0 0 0 1 
+
+State Machine - |gm_controller|pulse_timer:two_sec|pulse_state
+Name pulse_state.PCOUNTDOWN 
+pulse_state.PRESET_TIMER 0 
+pulse_state.PCOUNTDOWN 1 
+
+State Machine - |gm_controller|pulse_timer:quart_sec|pulse_state
+Name pulse_state.PCOUNTDOWN 
+pulse_state.PRESET_TIMER 0 
+pulse_state.PCOUNTDOWN 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw17|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw16|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw15|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw14|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw13|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw12|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw11|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw10|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw9|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw8|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw7|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw6|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw5|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw4|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw3|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw2|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw1|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |gm_controller|debounce_DE2_SW:debSW|debouncer:sw0|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 

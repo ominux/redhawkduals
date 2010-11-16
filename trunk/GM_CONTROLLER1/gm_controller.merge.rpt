@@ -1,0 +1,271 @@
+Partition Merge report for gm_controller
+Sun Oct 03 14:05:24 2010
+Quartus II Version 9.1 Build 222 10/21/2009 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Partition Merge Summary
+  3. Partition Merge Netlist Types Used
+  4. Partition Merge Partition Statistics
+  5. Partition Merge Resource Usage Summary
+  6. Partition Merge RAM Summary
+  7. Partition Merge DSP Block Usage Summary
+  8. Partition Merge Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------------------+
+; Partition Merge Summary                                                      ;
++------------------------------------+-----------------------------------------+
+; Partition Merge Status             ; Successful - Sun Oct 03 14:05:24 2010   ;
+; Quartus II Version                 ; 9.1 Build 222 10/21/2009 SJ Web Edition ;
+; Revision Name                      ; gm_controller                           ;
+; Top-level Entity Name              ; gm_controller                           ;
+; Family                             ; Cyclone II                              ;
+; Total logic elements               ; 7,759                                   ;
+;     Total combinational functions  ; 6,670                                   ;
+;     Dedicated logic registers      ; 4,259                                   ;
+; Total registers                    ; 4259                                    ;
+; Total pins                         ; 425                                     ;
+; Total virtual pins                 ; 0                                       ;
+; Total memory bits                  ; 100,736                                 ;
+; Embedded Multiplier 9-bit elements ; 4                                       ;
+; Total PLLs                         ; 2                                       ;
++------------------------------------+-----------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Partition Merge Netlist Types Used                                                                  ;
++------------------+----------------+-------------------+------------------------+--------------------+
+; Partition Name   ; Partition Type ; Netlist Type Used ; Netlist Type Requested ; Partition Contents ;
++------------------+----------------+-------------------+------------------------+--------------------+
+; Top              ; User-created   ; Source File       ; Post-Fit               ;                    ;
+; sld_hub:auto_hub ; Auto-generated ; Post-Synthesis    ; Post-Synthesis         ; sld_hub:auto_hub   ;
++------------------+----------------+-------------------+------------------------+--------------------+
+
+
++-------------------------------------------------------------------------+
+; Partition Merge Partition Statistics                                    ;
++---------------------------------------------+--------+------------------+
+; Statistic                                   ; Top    ; sld_hub:auto_hub ;
++---------------------------------------------+--------+------------------+
+; Estimated Total logic elements              ; 7631   ; 128              ;
+;                                             ;        ;                  ;
+; Total combinational functions               ; 6552   ; 118              ;
+; Logic element usage by number of LUT inputs ;        ;                  ;
+;     -- 4 input functions                    ; 3182   ; 63               ;
+;     -- 3 input functions                    ; 1919   ; 32               ;
+;     -- <=2 input functions                  ; 1451   ; 23               ;
+;                                             ;        ;                  ;
+; Logic elements by mode                      ;        ;                  ;
+;     -- normal mode                          ; 5576   ; 114              ;
+;     -- arithmetic mode                      ; 976    ; 4                ;
+;                                             ;        ;                  ;
+; Total registers                             ; 4183   ; 76               ;
+;     -- Dedicated logic registers            ; 4183   ; 76               ;
+;     -- I/O registers                        ; 0      ; 0                ;
+;                                             ;        ;                  ;
+; Virtual pins                                ; 0      ; 0                ;
+; I/O pins                                    ; 425    ; 0                ;
+; Embedded Multiplier 9-bit elements          ; 4      ; 0                ;
+; Total memory bits                           ; 100736 ; 0                ;
+; Total RAM block bits                        ; 0      ; 0                ;
+; JTAG                                        ; 1      ; 0                ;
+; PLL                                         ; 2      ; 0                ;
+;                                             ;        ;                  ;
+; Connections                                 ;        ;                  ;
+;     -- Input Connections                    ; 277    ; 121              ;
+;     -- Registered Input Connections         ; 127    ; 84               ;
+;     -- Output Connections                   ; 213    ; 185              ;
+;     -- Registered Output Connections        ; 4      ; 184              ;
+;                                             ;        ;                  ;
+; Internal Connections                        ;        ;                  ;
+;     -- Total Connections                    ; 43984  ; 838              ;
+;     -- Registered Connections               ; 19368  ; 618              ;
+;                                             ;        ;                  ;
+; External Connections                        ;        ;                  ;
+;     -- Top                                  ; 186    ; 304              ;
+;     -- sld_hub:auto_hub                     ; 304    ; 2                ;
+;                                             ;        ;                  ;
+; Partition Interface                         ;        ;                  ;
+;     -- Input Ports                          ; 88     ; 22               ;
+;     -- Output Ports                         ; 225    ; 39               ;
+;     -- Bidir Ports                          ; 159    ; 0                ;
+;                                             ;        ;                  ;
+; Registered Ports                            ;        ;                  ;
+;     -- Registered Input Ports               ; 0      ; 3                ;
+;     -- Registered Output Ports              ; 0      ; 29               ;
+;                                             ;        ;                  ;
+; Port Connectivity                           ;        ;                  ;
+;     -- Input Ports driven by GND            ; 0      ; 9                ;
+;     -- Output Ports driven by GND           ; 0      ; 0                ;
+;     -- Input Ports driven by VCC            ; 0      ; 0                ;
+;     -- Output Ports driven by VCC           ; 0      ; 0                ;
+;     -- Input Ports with no Source           ; 0      ; 0                ;
+;     -- Output Ports with no Source          ; 0      ; 0                ;
+;     -- Input Ports with no Fanout           ; 0      ; 1                ;
+;     -- Output Ports with no Fanout          ; 0      ; 25               ;
++---------------------------------------------+--------+------------------+
+Note: Resource usage numbers presented for Partitions containing post-synthesis logic are estimates.  For Partitions containing post-fit logic, resource usage numbers are accurate based on previous placement information.  Actual Fitter results may vary depending on current Fitter Preservation Level assignments.
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Resource Usage Summary                                                                                                     ;
++---------------------------------------------+----------------------------------------------------------------------------------------------+
+; Resource                                    ; Usage                                                                                        ;
++---------------------------------------------+----------------------------------------------------------------------------------------------+
+; Estimated Total logic elements              ; 7,759                                                                                        ;
+;                                             ;                                                                                              ;
+; Total combinational functions               ; 6670                                                                                         ;
+; Logic element usage by number of LUT inputs ;                                                                                              ;
+;     -- 4 input functions                    ; 3245                                                                                         ;
+;     -- 3 input functions                    ; 1951                                                                                         ;
+;     -- <=2 input functions                  ; 1474                                                                                         ;
+;                                             ;                                                                                              ;
+; Logic elements by mode                      ;                                                                                              ;
+;     -- normal mode                          ; 5690                                                                                         ;
+;     -- arithmetic mode                      ; 980                                                                                          ;
+;                                             ;                                                                                              ;
+; Total registers                             ; 4259                                                                                         ;
+;     -- Dedicated logic registers            ; 4259                                                                                         ;
+;     -- I/O registers                        ; 0                                                                                            ;
+;                                             ;                                                                                              ;
+; I/O pins                                    ; 425                                                                                          ;
+; Total memory bits                           ; 100736                                                                                       ;
+; Embedded Multiplier 9-bit elements          ; 4                                                                                            ;
+; Total PLLs                                  ; 2                                                                                            ;
+; Maximum fan-out node                        ; processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0 ;
+; Maximum fan-out                             ; 4498                                                                                         ;
+; Total fan-out                               ; 44310                                                                                        ;
+; Average fan-out                             ; 3.77                                                                                         ;
++---------------------------------------------+----------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge RAM Summary                                                                                                                                                                                                                                                                                                                                                                                  ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------+
+; Name                                                                                                                                                                                                                                                                       ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF                               ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------+
+; dm9000a_controller:ethernet|rx_data_fifo:rx_fifo|dcfifo:dcfifo_component|dcfifo_0jo1:auto_generated|altsyncram_7g01:fifo_ram|altsyncram_jcb1:altsyncram14|ALTSYNCRAM                                                                                                       ; M4K  ; True Dual Port   ; 512          ; 16           ; 512          ; 16           ; 8192  ; None                              ;
+; dm9000a_controller:ethernet|rx_data_fifo:tx_fifo|dcfifo:dcfifo_component|dcfifo_ueo1:auto_generated|altsyncram_1g01:fifo_ram|ALTSYNCRAM                                                                                                                                    ; M4K  ; Simple Dual Port ; 64           ; 16           ; 64           ; 16           ; 1024  ; None                              ;
+; packet_buffer:p2_packets|altsyncram:altsyncram_component|altsyncram_66a1:auto_generated|ALTSYNCRAM                                                                                                                                                                         ; AUTO ; Single Port      ; 512          ; 16           ; --           ; --           ; 8192  ; None                              ;
+; processor1:the_processor1|audio_0:the_audio_0|Altera_UP_Audio_In_Deserializer:Audio_In_Deserializer|Altera_UP_SYNC_FIFO:Audio_In_Left_Channel_FIFO|scfifo:Sync_FIFO|scfifo_7041:auto_generated|a_dpfifo_qn31:dpfifo|altsyncram_vc81:FIFOram|ALTSYNCRAM                     ; AUTO ; Simple Dual Port ; 128          ; 16           ; 128          ; 16           ; 2048  ; None                              ;
+; processor1:the_processor1|audio_0:the_audio_0|Altera_UP_Audio_In_Deserializer:Audio_In_Deserializer|Altera_UP_SYNC_FIFO:Audio_In_Right_Channel_FIFO|scfifo:Sync_FIFO|scfifo_7041:auto_generated|a_dpfifo_qn31:dpfifo|altsyncram_vc81:FIFOram|ALTSYNCRAM                    ; AUTO ; Simple Dual Port ; 128          ; 16           ; 128          ; 16           ; 2048  ; None                              ;
+; processor1:the_processor1|audio_0:the_audio_0|Altera_UP_Audio_Out_Serializer:Audio_Out_Serializer|Altera_UP_SYNC_FIFO:Audio_Out_Left_Channel_FIFO|scfifo:Sync_FIFO|scfifo_7041:auto_generated|a_dpfifo_qn31:dpfifo|altsyncram_vc81:FIFOram|ALTSYNCRAM                      ; AUTO ; Simple Dual Port ; 128          ; 16           ; 128          ; 16           ; 2048  ; None                              ;
+; processor1:the_processor1|audio_0:the_audio_0|Altera_UP_Audio_Out_Serializer:Audio_Out_Serializer|Altera_UP_SYNC_FIFO:Audio_Out_Right_Channel_FIFO|scfifo:Sync_FIFO|scfifo_7041:auto_generated|a_dpfifo_qn31:dpfifo|altsyncram_vc81:FIFOram|ALTSYNCRAM                     ; AUTO ; Simple Dual Port ; 128          ; 16           ; 128          ; 16           ; 2048  ; None                              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_bht_module:cpu_0_bht|altsyncram:the_altsyncram|altsyncram_8pf1:auto_generated|ALTSYNCRAM                                                                                                                                   ; AUTO ; Simple Dual Port ; 256          ; 2            ; 256          ; 2            ; 512   ; cpu_0_bht_ram.mif                 ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_dc_data_module:cpu_0_dc_data|altsyncram:the_altsyncram|altsyncram_29f1:auto_generated|ALTSYNCRAM                                                                                                                           ; AUTO ; Simple Dual Port ; 512          ; 32           ; 512          ; 32           ; 16384 ; None                              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_dc_tag_module:cpu_0_dc_tag|altsyncram:the_altsyncram|altsyncram_2ef1:auto_generated|ALTSYNCRAM                                                                                                                             ; AUTO ; Simple Dual Port ; 64           ; 16           ; 64           ; 16           ; 1024  ; cpu_0_dc_tag_ram.mif              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_dc_victim_module:cpu_0_dc_victim|altsyncram:the_altsyncram|altsyncram_9vc1:auto_generated|ALTSYNCRAM                                                                                                                       ; AUTO ; Simple Dual Port ; 8            ; 32           ; 8            ; 32           ; 256   ; None                              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_ic_data_module:cpu_0_ic_data|altsyncram:the_altsyncram|altsyncram_qed1:auto_generated|ALTSYNCRAM                                                                                                                           ; AUTO ; Simple Dual Port ; 1024         ; 32           ; 1024         ; 32           ; 32768 ; None                              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_ic_tag_module:cpu_0_ic_tag|altsyncram:the_altsyncram|altsyncram_d5g1:auto_generated|ALTSYNCRAM                                                                                                                             ; AUTO ; Simple Dual Port ; 128          ; 21           ; 128          ; 21           ; 2688  ; cpu_0_ic_tag_ram.mif              ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_nios2_oci:the_cpu_0_nios2_oci|cpu_0_nios2_ocimem:the_cpu_0_nios2_ocimem|cpu_0_ociram_lpm_dram_bdp_component_module:cpu_0_ociram_lpm_dram_bdp_component|altsyncram:the_altsyncram|altsyncram_c572:auto_generated|ALTSYNCRAM ; AUTO ; True Dual Port   ; 256          ; 32           ; 256          ; 32           ; 8192  ; cpu_0_ociram_default_contents.mif ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_register_bank_a_module:cpu_0_register_bank_a|altsyncram:the_altsyncram|altsyncram_87f1:auto_generated|ALTSYNCRAM                                                                                                           ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024  ; cpu_0_rf_ram_a.mif                ;
+; processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_register_bank_b_module:cpu_0_register_bank_b|altsyncram:the_altsyncram|altsyncram_97f1:auto_generated|ALTSYNCRAM                                                                                                           ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024  ; cpu_0_rf_ram_b.mif                ;
+; processor1:the_processor1|jtag_uart_0:the_jtag_uart_0|jtag_uart_0_scfifo_r:the_jtag_uart_0_scfifo_r|scfifo:rfifo|scfifo_1n21:auto_generated|a_dpfifo_8t21:dpfifo|dpram_5h21:FIFOram|altsyncram_9tl1:altsyncram2|ALTSYNCRAM                                                 ; AUTO ; Simple Dual Port ; 64           ; 8            ; 64           ; 8            ; 512   ; None                              ;
+; processor1:the_processor1|jtag_uart_0:the_jtag_uart_0|jtag_uart_0_scfifo_w:the_jtag_uart_0_scfifo_w|scfifo:wfifo|scfifo_1n21:auto_generated|a_dpfifo_8t21:dpfifo|dpram_5h21:FIFOram|altsyncram_9tl1:altsyncram2|ALTSYNCRAM                                                 ; AUTO ; Simple Dual Port ; 64           ; 8            ; 64           ; 8            ; 512   ; None                              ;
+; processor1:the_processor1|pixel_buffer_0:the_pixel_buffer_0|scfifo:Data_from_Buffer_FIFO|scfifo_50a1:auto_generated|a_dpfifo_qn31:dpfifo|altsyncram_vc81:FIFOram|ALTSYNCRAM                                                                                                ; AUTO ; Simple Dual Port ; 128          ; 16           ; 128          ; 16           ; 2048  ; None                              ;
+; processor1:the_processor1|pixel_buffer_0:the_pixel_buffer_0|scfifo:Enlarge_Height_FIFO|scfifo_sc21:auto_generated|a_dpfifo_f421:dpfifo|altsyncram_tc81:FIFOram|ALTSYNCRAM                                                                                                  ; AUTO ; Simple Dual Port ; 512          ; 16           ; 512          ; 16           ; 8192  ; None                              ;
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+-------+-----------------------------------+
+
+
++-----------------------------------------------------+
+; Partition Merge DSP Block Usage Summary             ;
++---------------------------------------+-------------+
+; Statistic                             ; Number Used ;
++---------------------------------------+-------------+
+; Simple Multipliers (9-bit)            ; 0           ;
+; Simple Multipliers (18-bit)           ; 2           ;
+; Embedded Multiplier Blocks            ; --          ;
+; Embedded Multiplier 9-bit elements    ; 4           ;
+; Signed Embedded Multipliers           ; 0           ;
+; Unsigned Embedded Multipliers         ; 2           ;
+; Mixed Sign Embedded Multipliers       ; 0           ;
+; Variable Sign Embedded Multipliers    ; 0           ;
+; Dedicated Input Shift Register Chains ; 0           ;
++---------------------------------------+-------------+
+Note: number of Embedded Multiplier Blocks used is only available after a successful fit.
+
+
++--------------------------+
+; Partition Merge Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Partition Merge
+    Info: Version 9.1 Build 222 10/21/2009 SJ Web Edition
+    Info: Processing started: Sun Oct 03 14:05:14 2010
+Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off gm_controller -c gm_controller --merge=on
+Warning: Previously generated Fitter netlist for partition "Top" does not exist -- using previously generated Synthesis netlist instead
+Info: Using synthesis netlist for partition "Top"
+Info: Using synthesis netlist for partition "sld_hub:auto_hub"
+Info: Resolved and merged 2 partition(s)
+Warning: Design contains 32 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "EXT_CLOCK"
+    Warning (15610): No output dependent on input pin "KEY[2]"
+    Warning (15610): No output dependent on input pin "KEY[3]"
+    Warning (15610): No output dependent on input pin "UART_RXD"
+    Warning (15610): No output dependent on input pin "IRDA_RXD"
+    Warning (15610): No output dependent on input pin "OTG_INT0"
+    Warning (15610): No output dependent on input pin "OTG_INT1"
+    Warning (15610): No output dependent on input pin "OTG_DREQ0"
+    Warning (15610): No output dependent on input pin "OTG_DREQ1"
+    Warning (15610): No output dependent on input pin "TDI"
+    Warning (15610): No output dependent on input pin "TCK"
+    Warning (15610): No output dependent on input pin "TCS"
+    Warning (15610): No output dependent on input pin "PS2_DAT"
+    Warning (15610): No output dependent on input pin "PS2_CLK"
+    Warning (15610): No output dependent on input pin "TD_DATA[0]"
+    Warning (15610): No output dependent on input pin "TD_DATA[1]"
+    Warning (15610): No output dependent on input pin "TD_DATA[2]"
+    Warning (15610): No output dependent on input pin "TD_DATA[3]"
+    Warning (15610): No output dependent on input pin "TD_DATA[4]"
+    Warning (15610): No output dependent on input pin "TD_DATA[5]"
+    Warning (15610): No output dependent on input pin "TD_DATA[6]"
+    Warning (15610): No output dependent on input pin "TD_DATA[7]"
+    Warning (15610): No output dependent on input pin "TD_HS"
+    Warning (15610): No output dependent on input pin "TD_VS"
+    Warning (15610): No output dependent on input pin "SW[17]"
+    Warning (15610): No output dependent on input pin "SW[14]"
+    Warning (15610): No output dependent on input pin "SW[10]"
+    Warning (15610): No output dependent on input pin "SW[9]"
+    Warning (15610): No output dependent on input pin "SW[8]"
+    Warning (15610): No output dependent on input pin "SW[7]"
+    Warning (15610): No output dependent on input pin "SW[3]"
+    Warning (15610): No output dependent on input pin "SW[1]"
+Info: Implemented 8970 device resources after synthesis - the final resource count might be different
+    Info: Implemented 51 input pins
+    Info: Implemented 219 output pins
+    Info: Implemented 159 bidirectional pins
+    Info: Implemented 8143 logic cells
+    Info: Implemented 391 RAM segments
+    Info: Implemented 2 PLLs
+    Info: Implemented 4 DSP elements
+Info: Quartus II Partition Merge was successful. 0 errors, 34 warnings
+    Info: Peak virtual memory: 193 megabytes
+    Info: Processing ended: Sun Oct 03 14:05:28 2010
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:05
+
+

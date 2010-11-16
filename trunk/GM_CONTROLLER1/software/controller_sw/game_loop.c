@@ -24,7 +24,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-*/ 
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -50,8 +50,8 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 	ship_t *ship;
 	vector_t new_velocity;
 	short hit;
-	int x; 
-	int y; 
+	int x;
+	int y;
 	int angle;
 
 	/* record anything that might be changed and needs refreshing */
@@ -67,7 +67,7 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 	else if (second == 0)
 	{
 		/* new minute */
-		p1_ship.power_budget_this_minute = power_calculation(&p1_ship); 
+		p1_ship.power_budget_this_minute = power_calculation(&p1_ship);
 		if (p1_ship.power_budget_this_minute > BASIC_POWER_COST)
 		{
 			p1_ship.stalled = FALSE;
@@ -104,7 +104,7 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 			return P2;
 		}
 	}
-	
+
 	if (partial_second == 0)
 	{
 		/* new second */
@@ -156,12 +156,12 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 				/* turning right */
 				ship->angle = (ship->angle + TURN_RATE) % 360;
 			}
-		
+
 			if (ship->engine > 0)
 			{
 				/* trying to accelerate */
 				float scalar;
-				
+
 				/* calculate the acceleration costs */
 				ship->power_budget_this_minute -= ENGINE_POWER_COST;
 				if (ship->power_budget_this_minute < BASIC_POWER_COST)
@@ -174,23 +174,23 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 					/* ship direction relative to our coordinate system */
 					new_velocity.x = ship->velocity->x + cos((ship->angle-270)*PI/180);
 					new_velocity.y = ship->velocity->y + sin((ship->angle-270)*PI/180);
-			
+
 					/* scalar to find speed */
 					scalar = sqrt(new_velocity.x*new_velocity.x + ship->velocity->y*ship->velocity->y);
-			
+
 					/* if too fast then scale back to max velocity */
 					if (scalar > MAX_SPEED)
 					{
 						new_velocity.x = new_velocity.x/scalar * MAX_SPEED;
 						new_velocity.y = new_velocity.y/scalar * MAX_SPEED;
 					}
-	
+
 					ship->velocity->x = new_velocity.x;
 					ship->velocity->y = new_velocity.y;
 				}
 			}
 		}
-	
+
 		/* now check if this speed would result in a wall hit */
 		ship->x = ship->x + ship->velocity->x/UPDATES_PER_SECOND;
 		ship->y = ship->y + ship->velocity->y/UPDATES_PER_SECOND;
@@ -203,7 +203,7 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 		{
 			ship->reset = TRUE;
 		}
-	
+
 		hit = check_wall_collide_ew(ship->temp_matrix, 4);
 		if (hit == WALL_E || hit == WALL_W)
 		{
@@ -270,7 +270,7 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 				}
 				else
 				{
-					/* shot fired */	
+					/* shot fired */
 					ship->shot_fired_x_seconds_ago = 1;
 
 					if (straight_line_vector_projection(ship, ship->angle, ship->x, ship->y, TRUE) == SHIP)
@@ -338,13 +338,13 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 		draw_string(pixel_buf_dev, p2_ship.color[0], 0, spot2_x, 230, power, 6);
 		spot2_x += 6*6;
 
-		if (p1_ship.power_budget_this_minute != p1_ship.power_budget_this_minute_old || first_run == TRUE)
-		{	
+		//if (p1_ship.power_budget_this_minute != p1_ship.power_budget_this_minute_old || first_run == TRUE)
+		{
 			draw_string(pixel_buf_dev, 0x0000, 0, spot1_x, 230, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
 			number_to_character_string(p1_ship.power_budget_string, p1_ship.power_budget_this_minute);
 			draw_string(pixel_buf_dev, p1_ship.color[0], 0, spot1_x, 230, p1_ship.power_budget_string->string, p1_ship.power_budget_string->size);
 		}
-		if (p2_ship.power_budget_this_minute != p2_ship.power_budget_this_minute_old || first_run == TRUE)
+		//if (p2_ship.power_budget_this_minute != p2_ship.power_budget_this_minute_old || first_run == TRUE)
 		{
 			draw_string(pixel_buf_dev, 0x0000, 0, spot2_x, 230, p2_ship.power_budget_string->string, p2_ship.power_budget_string->size);
 			number_to_character_string(p2_ship.power_budget_string, p2_ship.power_budget_this_minute);

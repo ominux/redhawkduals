@@ -1,0 +1,1 @@
+Info (10281): Verilog HDL Declaration information at dm9000a_controller.v(145): object "INTERRUPT_FLAGS" differs only in case from object "interrupt_flags" in the same scope

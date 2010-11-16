@@ -1,0 +1,106 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 29.820 ns
+From           : ENET_DATA[4]
+To             : dm9000a_controller:ethernet|rx_length[12]
+From Clock     : --
+To Clock       : CLOCK_50
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 12.867 ns
+From           : pb_to_proc_state.READ_PB
+To             : HEX4[1]
+From Clock     : CLOCK_50
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 9.209 ns
+From           : KEY[0]
+To             : ENET_RST_N
+From Clock     : --
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : 1.519 ns
+From           : altera_internal_jtag~TDIUTAP
+To             : processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_nios2_oci:the_cpu_0_nios2_oci|cpu_0_jtag_debug_module_wrapper:the_cpu_0_jtag_debug_module_wrapper|cpu_0_jtag_debug_module_tck:the_cpu_0_jtag_debug_module_tck|sr[15]
+From Clock     : --
+To Clock       : altera_internal_jtag~TCKUTAP
+Failed Paths   : 0
+
+Type           : Clock Setup: 'processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0'
+Slack          : 6.324 ns
+Required Time  : 50.00 MHz ( period = 20.000 ns )
+Actual Time    : 73.12 MHz ( period = 13.676 ns )
+From           : processor1:the_processor1|cpu_0:the_cpu_0|d_address_tag_field[1]
+To             : processor1:the_processor1|cpu_0:the_cpu_0|cpu_0_dc_victim_module:cpu_0_dc_victim|altsyncram:the_altsyncram|altsyncram_9vc1:auto_generated|ram_block1a0~portb_re_reg
+From Clock     : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0
+To Clock       : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0
+Failed Paths   : 0
+
+Type           : Clock Setup: 'processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2'
+Slack          : 32.621 ns
+Required Time  : 25.00 MHz ( period = 40.000 ns )
+Actual Time    : 135.52 MHz ( period = 7.379 ns )
+From           : dm9000a_controller:ethernet|rx_data_fifo:rx_fifo|dcfifo:dcfifo_component|dcfifo_0jo1:auto_generated|a_graycounter_egc:wrptr_gp|counter13a[4]
+To             : dm9000a_controller:ethernet|rx_data_fifo:rx_fifo|dcfifo:dcfifo_component|dcfifo_0jo1:auto_generated|a_graycounter_egc:wrptr_gp|counter13a[9]
+From Clock     : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2
+To Clock       : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2
+Failed Paths   : 0
+
+Type           : Clock Setup: 'altera_internal_jtag~TCKUTAP'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 103.95 MHz ( period = 9.620 ns )
+From           : sld_hub:auto_hub|irsr_reg[2]
+To             : sld_hub:auto_hub|tdo
+From Clock     : altera_internal_jtag~TCKUTAP
+To Clock       : altera_internal_jtag~TCKUTAP
+Failed Paths   : 0
+
+Type           : Clock Hold: 'processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0'
+Slack          : 0.391 ns
+Required Time  : 50.00 MHz ( period = 20.000 ns )
+Actual Time    : N/A
+From           : processor1:the_processor1|sdram_0:the_sdram_0|i_cmd[3]
+To             : processor1:the_processor1|sdram_0:the_sdram_0|i_cmd[3]
+From Clock     : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0
+To Clock       : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk0
+Failed Paths   : 0
+
+Type           : Clock Hold: 'processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2'
+Slack          : 0.391 ns
+Required Time  : 25.00 MHz ( period = 40.000 ns )
+Actual Time    : N/A
+From           : dm9000a_controller:ethernet|link_status
+To             : dm9000a_controller:ethernet|link_status
+From Clock     : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2
+To Clock       : processor1:the_processor1|de_boards_0:the_de_boards_0|altpll:DE_Clock_Generator_System|_clk2
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 0
+
+--------------------------------------------------------------------------------------
+

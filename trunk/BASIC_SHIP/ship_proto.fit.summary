@@ -1,0 +1,16 @@
+Fitter Status : Successful - Sun Oct 03 15:37:39 2010
+Quartus II Version : 9.1 Build 222 10/21/2009 SJ Web Edition
+Revision Name : ship_proto
+Top-level Entity Name : ship_proto
+Family : Cyclone II
+Device : EP2C35F672C6
+Timing Models : Final
+Total logic elements : 1,767 / 33,216 ( 5 % )
+    Total combinational functions : 1,528 / 33,216 ( 5 % )
+    Dedicated logic registers : 1,198 / 33,216 ( 4 % )
+Total registers : 1198
+Total pins : 425 / 475 ( 89 % )
+Total virtual pins : 0
+Total memory bits : 11,264 / 483,840 ( 2 % )
+Embedded Multiplier 9-bit elements : 0 / 70 ( 0 % )
+Total PLLs : 1 / 4 ( 25 % )

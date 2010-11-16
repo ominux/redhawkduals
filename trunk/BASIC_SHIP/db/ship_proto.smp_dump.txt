@@ -1,0 +1,350 @@
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|receive_packet_state
+Name receive_packet_state.DO_RECEIVE receive_packet_state.RECEIVE_NEXT receive_packet_state.WAIT_RECEIVE receive_packet_state.START_RECEIVE 
+receive_packet_state.START_RECEIVE 0 0 0 0 
+receive_packet_state.WAIT_RECEIVE 0 0 1 1 
+receive_packet_state.RECEIVE_NEXT 0 1 0 1 
+receive_packet_state.DO_RECEIVE 1 0 0 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|after_spin_read
+Name after_spin_read.UPACKET11 after_spin_read.UPACKET10 after_spin_read.UPACKET9 after_spin_read.UPACKET8 after_spin_read.UPACKET7 after_spin_read.UPACKET6 after_spin_read.UPACKET5 after_spin_read.UPACKET4 after_spin_read.UPACKET3 after_spin_read.UPACKET2 after_spin_read.UPACKET1 after_spin_read.BEGIN_SEND 
+after_spin_read.UPACKET1 0 0 0 0 0 0 0 0 0 0 0 0 
+after_spin_read.UPACKET2 0 0 0 0 0 0 0 0 0 1 1 0 
+after_spin_read.UPACKET3 0 0 0 0 0 0 0 0 1 0 1 0 
+after_spin_read.UPACKET4 0 0 0 0 0 0 0 1 0 0 1 0 
+after_spin_read.UPACKET5 0 0 0 0 0 0 1 0 0 0 1 0 
+after_spin_read.UPACKET6 0 0 0 0 0 1 0 0 0 0 1 0 
+after_spin_read.UPACKET7 0 0 0 0 1 0 0 0 0 0 1 0 
+after_spin_read.UPACKET8 0 0 0 1 0 0 0 0 0 0 1 0 
+after_spin_read.UPACKET9 0 0 1 0 0 0 0 0 0 0 1 0 
+after_spin_read.UPACKET10 0 1 0 0 0 0 0 0 0 0 1 0 
+after_spin_read.UPACKET11 1 0 0 0 0 0 0 0 0 0 1 0 
+after_spin_read.BEGIN_SEND 0 0 0 0 0 0 0 0 0 0 1 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|receive_send_state
+Name receive_send_state.WAIT_FOR_YOUR_PACKET receive_send_state.SPIN_READ2 receive_send_state.SPIN_READ1 receive_send_state.TX_COMPLETE receive_send_state.TURN_OFF_PROC_SIGS receive_send_state.REQUEST_TX receive_send_state.SPACKET4 receive_send_state.SPACKET3 receive_send_state.SPACKET2 receive_send_state.SPACKET1 receive_send_state.BEGIN_SEND receive_send_state.UPACKET11 receive_send_state.UPACKET10 receive_send_state.UPACKET9 receive_send_state.UPACKET8 receive_send_state.UPACKET7 receive_send_state.UPACKET6 receive_send_state.UPACKET5 receive_send_state.UPACKET4 receive_send_state.UPACKET3 receive_send_state.UPACKET2 receive_send_state.UPACKET1 receive_send_state.BEGIN_UPDATE_GD receive_send_state.INIT 
+receive_send_state.INIT 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+receive_send_state.BEGIN_UPDATE_GD 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+receive_send_state.UPACKET1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+receive_send_state.UPACKET2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+receive_send_state.UPACKET3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+receive_send_state.UPACKET4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+receive_send_state.UPACKET5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+receive_send_state.UPACKET6 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+receive_send_state.UPACKET7 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+receive_send_state.UPACKET8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+receive_send_state.UPACKET9 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.UPACKET10 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.UPACKET11 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.BEGIN_SEND 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPACKET1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPACKET2 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPACKET3 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPACKET4 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.REQUEST_TX 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.TURN_OFF_PROC_SIGS 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.TX_COMPLETE 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPIN_READ1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.SPIN_READ2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+receive_send_state.WAIT_FOR_YOUR_PACKET 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|tx_packet:send_packet|e_state
+Name e_state.ERROR e_state.IDLE2 e_state.STATE_LENGTH e_state.STATE_DATA_WRITE e_state.STATE_DATA_READ2 e_state.STATE_DATA_READ1 e_state.STATE_ETHER e_state.STATE_MAC1 e_state.STATE_MAC2 e_state.STATE_MAC3 e_state.IDLE 
+e_state.IDLE 0 0 0 0 0 0 0 0 0 0 0 
+e_state.STATE_MAC3 0 0 0 0 0 0 0 0 0 1 1 
+e_state.STATE_MAC2 0 0 0 0 0 0 0 0 1 0 1 
+e_state.STATE_MAC1 0 0 0 0 0 0 0 1 0 0 1 
+e_state.STATE_ETHER 0 0 0 0 0 0 1 0 0 0 1 
+e_state.STATE_DATA_READ1 0 0 0 0 0 1 0 0 0 0 1 
+e_state.STATE_DATA_READ2 0 0 0 0 1 0 0 0 0 0 1 
+e_state.STATE_DATA_WRITE 0 0 0 1 0 0 0 0 0 0 1 
+e_state.STATE_LENGTH 0 0 1 0 0 0 0 0 0 0 1 
+e_state.IDLE2 0 1 0 0 0 0 0 0 0 0 1 
+e_state.ERROR 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|rx_packet:recevie_packet|e_state
+Name e_state.DELAY_SPIN e_state.STATE_LENGTH2 e_state.STATE_DATA_WRITE2 e_state.STATE_MAC1_2 e_state.STATE_MAC2_2 e_state.STATE_MAC3_2 e_state.ERROR e_state.IDLE2 e_state.STATE_LENGTH1 e_state.STATE_DATA_WRITE1 e_state.STATE_DATA_READ e_state.STATE_ETHER e_state.STATE_MAC1 e_state.STATE_MAC2 e_state.STATE_MAC3 e_state.IDLE e_state.SEND_SIGNALS 
+e_state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+e_state.STATE_MAC3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 
+e_state.STATE_MAC2 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 
+e_state.STATE_MAC1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 
+e_state.STATE_ETHER 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 
+e_state.STATE_DATA_READ 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 
+e_state.STATE_DATA_WRITE1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 
+e_state.STATE_LENGTH1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 
+e_state.IDLE2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 
+e_state.ERROR 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 
+e_state.STATE_MAC3_2 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 
+e_state.STATE_MAC2_2 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 
+e_state.STATE_MAC1_2 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 
+e_state.STATE_DATA_WRITE2 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 
+e_state.STATE_LENGTH2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 
+e_state.DELAY_SPIN 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 
+e_state.SEND_SIGNALS 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|issue_register
+Name issue_register.0000000011111111 issue_register.0000000011111110 issue_register.0000000011110010 issue_register.0000000011110000 issue_register.0000000000011111 issue_register.0000000000011101 issue_register.0000000000011100 issue_register.0000000000011011 issue_register.0000000000011010 issue_register.0000000000011001 issue_register.0000000000011000 issue_register.0000000000010111 issue_register.0000000000010110 issue_register.0000000000010101 issue_register.0000000000010100 issue_register.0000000000010011 issue_register.0000000000010010 issue_register.0000000000010001 issue_register.0000000000010000 issue_register.0000000000000101 issue_register.0000000000000001 issue_register.0000000000000000 
+issue_register.0000000000000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+issue_register.0000000000000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+issue_register.0000000000000101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+issue_register.0000000000010000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+issue_register.0000000000010001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+issue_register.0000000000010010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+issue_register.0000000000010011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+issue_register.0000000000010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+issue_register.0000000000010101 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+issue_register.0000000000010110 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000010111 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011000 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011001 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011010 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011011 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011100 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011101 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000000011111 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011110000 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011110010 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011111110 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+issue_register.0000000011111111 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|cmd_post_spin_state
+Name cmd_post_spin_state.00010 cmd_post_spin_state.00100 cmd_post_spin_state.00011 
+cmd_post_spin_state.00010 0 0 0 
+cmd_post_spin_state.00011 1 0 1 
+cmd_post_spin_state.00100 1 1 0 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|cmd_state
+Name cmd_state.10010 cmd_state.10001 cmd_state.10000 cmd_state.01111 cmd_state.01110 cmd_state.01101 cmd_state.01100 cmd_state.01011 cmd_state.01010 cmd_state.01001 cmd_state.01000 cmd_state.00111 cmd_state.00110 cmd_state.00101 cmd_state.00100 cmd_state.00011 cmd_state.00010 cmd_state.00000 cmd_state.00001 
+cmd_state.00001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+cmd_state.00000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+cmd_state.00010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+cmd_state.00011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+cmd_state.00100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+cmd_state.00101 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+cmd_state.00110 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+cmd_state.00111 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+cmd_state.01000 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+cmd_state.01001 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+cmd_state.01010 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01011 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01100 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01101 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01110 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.01111 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10000 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10001 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+cmd_state.10010 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|data_tx_rx:packet_mover|dm9000a_controller:ethernet|state
+Name state.101110 state.101101 state.101100 state.101011 state.101010 state.101001 state.101000 state.100111 state.100110 state.100101 state.100100 state.100011 state.100010 state.100001 state.100000 state.011111 state.011110 state.011101 state.011100 state.011011 state.011010 state.011001 state.011000 state.010111 state.010110 state.010101 state.010100 state.010011 state.010010 state.010001 state.010000 state.001111 state.001110 state.001101 state.001100 state.001011 state.001010 state.001001 state.001000 state.000111 state.000110 state.000101 state.000100 state.000011 state.000010 state.000001 state.000000 
+state.000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.000011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.000101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.000110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.000111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.001000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.001010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.001011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.001100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.001111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.010111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011011 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011101 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.011111 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100001 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100010 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100011 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100100 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100101 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100110 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.100111 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101000 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101001 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101010 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101011 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101100 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101101 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.101110 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|crystal_read:read_crystals|crystal_state
+Name crystal_state.NEXT_8 crystal_state.NEXT_7 crystal_state.NEXT_6 crystal_state.NEXT_5 crystal_state.NEXT_4 crystal_state.NEXT_3 crystal_state.NEXT_2 crystal_state.READ_8 crystal_state.START_8 crystal_state.READ_7 crystal_state.START_7 crystal_state.READ_6 crystal_state.START_6 crystal_state.READ_5 crystal_state.START_5 crystal_state.READ_4 crystal_state.START_4 crystal_state.READ_3 crystal_state.START_3 crystal_state.READ_2 crystal_state.START_2 crystal_state.READ_A crystal_state.START_A crystal_state.IDLE2 crystal_state.IDLE 
+crystal_state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+crystal_state.IDLE2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+crystal_state.START_A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+crystal_state.READ_A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+crystal_state.START_2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+crystal_state.READ_2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+crystal_state.START_3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+crystal_state.READ_3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+crystal_state.START_4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+crystal_state.READ_4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+crystal_state.START_5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+crystal_state.READ_5 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.START_6 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.READ_6 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.START_7 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.READ_7 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.START_8 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.READ_8 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_2 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_3 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_4 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_5 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_6 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_7 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+crystal_state.NEXT_8 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |ship_proto|pulse_timer:two_sec|pulse_state
+Name pulse_state.PCOUNTDOWN 
+pulse_state.PRESET_TIMER 0 
+pulse_state.PCOUNTDOWN 1 
+
+State Machine - |ship_proto|pulse_timer:quart_sec|pulse_state
+Name pulse_state.PCOUNTDOWN 
+pulse_state.PRESET_TIMER 0 
+pulse_state.PCOUNTDOWN 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw17|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw16|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw15|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw14|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw13|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw12|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw11|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw10|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw9|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw8|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw7|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw6|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw5|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw4|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw3|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw2|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw1|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
+
+State Machine - |ship_proto|debounce_DE2_SW:debSW|debouncer:sw0|b_state
+Name b_state.OFF_2_ON b_state.ON b_state.ON_2_OFF b_state.OFF 
+b_state.OFF 0 0 0 0 
+b_state.ON_2_OFF 0 0 1 1 
+b_state.ON 0 1 0 1 
+b_state.OFF_2_ON 1 0 0 1 
