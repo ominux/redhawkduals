@@ -1,0 +1,16 @@
+set_global_assignment -name SDC_FILE cpu_0.sdc
+set_global_assignment -name VERILOG_FILE pixel_buffer_0.v
+ set_global_assignment -name VERILOG_FILE sram_0.v
+ set_global_assignment -name VERILOG_FILE audio_0.v
+ set_global_assignment -name VERILOG_FILE de_boards_0.v
+ set_global_assignment -name VERILOG_FILE audio_and_video_config_0.v
+ set_global_assignment -name SOURCE_FILE cpu_0.ocp
+set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_audio/Altera_UP_Avalon_Audio_hw.tcl
+set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_vga/Altera_UP_Avalon_VGA_hw.tcl
+set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_pixel_buffer/Altera_UP_Avalon_Pixel_Buffer_hw.tcl
+set_global_assignment -name VERILOG_FILE vga_0.v
+ set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_external_clocks/Altera_UP_Avalon_External_Clocks_hw.tcl
+set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_sram/Altera_UP_Avalon_SRAM_hw.tcl
+set_global_assignment -name TCL_FILE H:/RESEARCH/PROGRAMS_AND_DEVELOPMENT/FPGA_DEVELOPMENT_DE2/University_CORES_90/altera_up_avalon_audio_and_video_config/Altera_UP_Avalon_Audio_and_Video_Config_hw.tcl
+set_global_assignment -name SOPC_BUILDER_SIGNATURE_ID 0025B30D2B3C0000012961AABACD 
+ 

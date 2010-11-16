@@ -80,14 +80,14 @@ begin
 	if (rst_n == 1'b0) 
 	begin
 		crystal_state <= IDLE;
-		power_crystal_A_hooked_up_to <= 4'd0;
+		power_crystal_A_hooked_up_to <= 4'd7;
 		power_crystal_2_hooked_up_to <= 4'd0;
-		power_crystal_3_hooked_up_to <= 4'd0;
-		power_crystal_4_hooked_up_to <= 4'd0;
-		power_crystal_5_hooked_up_to <= 4'd0;
-		power_crystal_6_hooked_up_to <= 4'd0;
-		power_crystal_7_hooked_up_to <= 4'd0;
-		power_crystal_8_hooked_up_to <= 4'd0;
+		power_crystal_3_hooked_up_to <= 4'd1;
+		power_crystal_4_hooked_up_to <= 4'd2;
+		power_crystal_5_hooked_up_to <= 4'd3;
+		power_crystal_6_hooked_up_to <= 4'd4;
+		power_crystal_7_hooked_up_to <= 4'd5;
+		power_crystal_8_hooked_up_to <= 4'd6;
 		timer <= 20'd0;
 	end
 	else 

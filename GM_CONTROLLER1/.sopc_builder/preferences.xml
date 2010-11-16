@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <systemtable filter="All">
+  <columns>
+   <connections preferredWidth="127" visible="1" />
+   <export visible="0" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="207" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="341" />
+   <clocksource preferredWidth="340" />
+   <frequency preferredWidth="327" />
+  </columns>
+ </clocktable>
+ <window width="1680" height="1016" x="0" y="0" />
+ <library
+   expandedCategories="Project,Library/University Program/Audio &amp; Video/Video Out,Library/Peripherals/Display,Library/Peripherals,Library/Memories and Memory Controllers,Library,Library/University Program/Audio &amp; Video,Library/University Program,Library/Memories and Memory Controllers/SRAM,Library/Bridges and Adapters,Library/Peripherals/Microcontroller Peripherals,Library/University Program/Memory" />
+</preferences>
