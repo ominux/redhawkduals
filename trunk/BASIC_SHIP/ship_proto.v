@@ -379,7 +379,7 @@ wire [2:0] power_crystal_8_hooked_up_to;
 reg engines_on;
 reg [1:0]engines_left_right; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
 reg [1:0]sensor_movement_state; // 2'b00 = Don't Move, 2'b01 = Move Left, 2'b10 = Move Right
-reg [7:0]sensor_movement_per_sample; // 90 degrees at .5 degree increments = 180...180/samples/sec...4 control samples per s, therefore, 45 is max number 
+reg [7:0]sensor_movement_per_sample; // 90 degrees at .5 degree increments = 180
 reg cannon_fire; // sampled every second
 reg [9:0]cannon_power;
 reg [15:0]tx_checksum; // checksum that you might send to verify
