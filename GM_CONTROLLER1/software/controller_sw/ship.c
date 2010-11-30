@@ -469,7 +469,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->A_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case B:
 			switch (idx2)
@@ -489,7 +489,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->B_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case C:
 			switch (idx2)
@@ -509,7 +509,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->C_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case D:
 			switch (idx2)
@@ -529,7 +529,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->D_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case E:
 			switch (idx2)
@@ -549,7 +549,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->E_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case F:
 			switch (idx2)
@@ -569,7 +569,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->F_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case G:
 			switch (idx2)
@@ -589,7 +589,7 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case H:
 					return ship->G_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		case H:
 			switch (idx2)
@@ -609,10 +609,10 @@ alt_u8 lookup_power_link(ship_t *ship, short idx1, short idx2)
 				case G:
 					return ship->G_H_val;
 				default:
-					return -1;
+					return 0;
 			}
 		default:
-			return -1;
+			return 0;
 	}
 }
 
