@@ -384,14 +384,22 @@ int power_calculation(ship_t *ship)
 	else
 	{
 		/* hookup of crystals sent by user */
-		current_power = lookup_power_link(ship, A, ship->c2_hookedup_to);
+		current_power = lookup_power_link(ship, A, ship->cA_hookedup_to);
+		if (current_power <= 0 || (used & (1 << ship->cA_hookedup_to)) >= 1)
+		{
+			return 0;
+		}
+		used = used | (1 << ship->cA_hookedup_to);
+		power_budget += current_power;
+	
+		current_power = lookup_power_link(ship, ship->cA_hookedup_to, ship->c2_hookedup_to);
 		if (current_power <= 0 || (used & (1 << ship->c2_hookedup_to)) >= 1)
 		{
 			return 0;
 		}
 		used = used | (1 << ship->c2_hookedup_to);
 		power_budget += current_power;
-	
+
 		current_power = lookup_power_link(ship, ship->c2_hookedup_to, ship->c3_hookedup_to);
 		if (current_power <= 0 || (used & (1 << ship->c3_hookedup_to)) >= 1)
 		{
