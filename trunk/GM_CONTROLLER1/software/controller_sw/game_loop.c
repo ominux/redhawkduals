@@ -149,7 +149,14 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 			if (ship->engine_left_right == 1)
 			{
 				/* turning left */
-				ship->angle = (ship->angle - TURN_RATE) % 360;
+				if (ship->angle - TURN_RATE < 0)
+				{
+					ship->angle = 360 + ship->angle - TURN_RATE;
+				}
+				else
+				{
+					ship->angle = (ship->angle - TURN_RATE) % 360;
+				}
 			}
 			else if (ship->engine_left_right == 2)
 			{
