@@ -73,6 +73,10 @@ int main()
 	char game_start[9] = "new game";
 	static string_t time;
 
+//	unsigned int seed;
+//	seed=clock();
+//	srand(seed);
+
 	/* initialize time */
 	time.string = (char*)malloc(sizeof(char)*(10));
 	number_to_character_string(&time, 0);

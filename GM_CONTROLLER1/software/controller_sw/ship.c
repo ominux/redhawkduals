@@ -447,6 +447,9 @@ int power_calculation(ship_t *ship)
 			return 0;
 		}
 		power_budget += current_power;
+
+		if (used != 256)
+		       return 0;	
 	
 		return power_budget;
 	}

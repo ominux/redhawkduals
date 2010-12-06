@@ -97,11 +97,11 @@ short game_loop(int data_update, int second, int partial_second, short first_run
 		}
 		else if (p1_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME)
 		{
-			return P1;
+			return P2;
 		}
 		else if (p2_ship.stalled_for_minutes >= GAME_OVER_STALL_TIME)
 		{
-			return P2;
+			return P1;
 		}
 	}
 
