@@ -111,7 +111,7 @@ ship_t
 
 	int color[2]; // color of various lines that make up ship
 
-	alt_u16 angle; // current angle
+	int angle; // current angle
 	float x; // centroids
 	float y;
 	vector_t *velocity;
